@@ -132,8 +132,6 @@ public class Log_In extends javax.swing.JFrame {
         String name = txtAdmin.getText();
         String password = txtPassword.getText();
         
-        System.out.println(name);
-        System.out.println(password);
     }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
