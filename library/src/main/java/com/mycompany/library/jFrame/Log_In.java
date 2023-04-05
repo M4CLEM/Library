@@ -46,6 +46,7 @@ public class Log_In extends javax.swing.JFrame {
         jLabel1.setBounds(0, 0, 480, 450);
 
         jPanel2.setBackground(new java.awt.Color(27, 53, 86));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jPanel2.setLayout(null);
 
         jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Clemence\\Desktop\\LMSImages\\Icons\\logo.jpg")); // NOI18N
@@ -64,7 +65,9 @@ public class Log_In extends javax.swing.JFrame {
         jPanel2.add(jLabel4);
         jLabel4.setBounds(10, 190, 110, 32);
 
+        txtAdmin.setBackground(new java.awt.Color(11, 50, 69));
         txtAdmin.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txtAdmin.setForeground(new java.awt.Color(255, 255, 255));
         txtAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAdminActionPerformed(evt);
@@ -73,7 +76,9 @@ public class Log_In extends javax.swing.JFrame {
         jPanel2.add(txtAdmin);
         txtAdmin.setBounds(130, 130, 260, 38);
 
+        txtPassword.setBackground(new java.awt.Color(11, 50, 69));
         txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txtPassword.setForeground(new java.awt.Color(255, 255, 255));
         txtPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPasswordActionPerformed(evt);
@@ -86,6 +91,11 @@ public class Log_In extends javax.swing.JFrame {
         btnLogin.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnLogin.setForeground(new java.awt.Color(255, 255, 255));
         btnLogin.setText("Login");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnLogin);
         btnLogin.setBounds(190, 290, 100, 39);
 
@@ -116,6 +126,15 @@ public class Log_In extends javax.swing.JFrame {
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPasswordActionPerformed
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        // TODO add your handling code here:
+        String name = txtAdmin.getText();
+        String password = txtPassword.getText();
+        
+        System.out.println(name);
+        System.out.println(password);
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
      * @param args the command line arguments
