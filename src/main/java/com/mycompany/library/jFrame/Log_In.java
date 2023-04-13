@@ -4,6 +4,10 @@
  */
 package com.mycompany.library.jFrame;
 
+import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
+
+import com.mycompany.library.User;
+
 /**
  *
  * @author Clemence
@@ -130,15 +134,23 @@ public class Log_In extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        String name = txtAdmin.getText();
-        String password = txtPassword.getText();
-        
+        User user = new User(txtAdmin.getText(), txtPassword.getText());
+        user.isValidUser();
+        user.showInfo(); // debug only
+        if(user.isAdmin()) {
+            System.out.println("User is admin");
+        } else if(!user.isAdmin() && user.isValidUser()) {
+            System.out.println("User is a regular user");
+        } else {
+            System.out.println("Unknown user");
+        }
+        setVisible(false); // hide window
     }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
