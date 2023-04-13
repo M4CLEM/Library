@@ -135,7 +135,6 @@ public class Log_In extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
         User user = new User(txtAdmin.getText(), txtPassword.getText());
-        user.isValidUser();
         user.showInfo(); // debug only
         if(user.isAdmin()) {
             System.out.println("User is admin");
