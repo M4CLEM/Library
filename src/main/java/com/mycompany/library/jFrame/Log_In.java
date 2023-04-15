@@ -39,6 +39,7 @@ public class Log_In extends javax.swing.JFrame {
         txtAdmin = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
         btnLogin = new javax.swing.JButton();
+        btnLogin1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,7 +47,7 @@ public class Log_In extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
         jPanel1.setLayout(null);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("resources\\images\\background.jpg")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Clemence\\Desktop\\LMSImages\\Icons\\background.jpg")); // NOI18N
         jPanel1.add(jLabel1);
         jLabel1.setBounds(0, 0, 480, 450);
 
@@ -54,7 +55,7 @@ public class Log_In extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
         jPanel2.setLayout(null);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("resources\\images\\logo.jpg")); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Clemence\\Desktop\\LMSImages\\Icons\\logo.jpg")); // NOI18N
         jLabel2.setBorder(javax.swing.BorderFactory.createMatteBorder(5, 5, 0, 5, new java.awt.Color(0, 0, 0)));
         jPanel2.add(jLabel2);
         jLabel2.setBounds(0, 0, 430, 100);
@@ -96,20 +97,26 @@ public class Log_In extends javax.swing.JFrame {
         btnLogin.setBackground(new java.awt.Color(11, 50, 69));
         btnLogin.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnLogin.setForeground(new java.awt.Color(255, 255, 255));
-        btnLogin.setText("Login");
+        btnLogin.setText("Guest");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                User user = btnLoginActionPerformed(evt);
-                if(user.isAdmin() || user.isValidUser()) {
-                    dispose(); // dispose login window
-                    new Reservation(user); // proceed to reservation window
-                } else {
-                    System.out.println("Incorrect Username or Password");
-                }
+                btnLoginActionPerformed(evt);
             }
         });
         jPanel2.add(btnLogin);
-        btnLogin.setBounds(190, 290, 100, 39);
+        btnLogin.setBounds(130, 270, 100, 39);
+
+        btnLogin1.setBackground(new java.awt.Color(11, 50, 69));
+        btnLogin1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnLogin1.setForeground(new java.awt.Color(255, 255, 255));
+        btnLogin1.setText("Login");
+        btnLogin1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogin1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnLogin1);
+        btnLogin1.setBounds(290, 270, 100, 39);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -128,7 +135,6 @@ public class Log_In extends javax.swing.JFrame {
 
         pack();
         setLocationRelativeTo(null);
-        setVisible(true);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAdminActionPerformed
@@ -138,6 +144,10 @@ public class Log_In extends javax.swing.JFrame {
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPasswordActionPerformed
+
+    private void btnLogin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogin1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLogin1ActionPerformed
 
     private User btnLoginActionPerformed(java.awt.event.ActionEvent evt) {
         return new User(txtAdmin.getText(), txtPassword.getText());
@@ -181,6 +191,7 @@ public class Log_In extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
+    private javax.swing.JButton btnLogin1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

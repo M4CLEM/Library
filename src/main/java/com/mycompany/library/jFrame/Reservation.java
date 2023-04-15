@@ -24,14 +24,16 @@ public class Reservation extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents(User user) {
+    private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblTable = new javax.swing.JTable();
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        btnBookReserve = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -44,10 +46,11 @@ public class Reservation extends javax.swing.JFrame {
         jPanel1.add(jLabel1);
         jLabel1.setBounds(0, 0, 438, 120);
 
-        jTable1.setBackground(new java.awt.Color(11, 50, 69));
-        jTable1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jTable1.setForeground(new java.awt.Color(255, 255, 255));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblTable.setBackground(new java.awt.Color(11, 50, 69));
+        tblTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tblTable.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        tblTable.setForeground(new java.awt.Color(255, 255, 255));
+        tblTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
@@ -84,7 +87,9 @@ public class Reservation extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        tblTable.setGridColor(new java.awt.Color(255, 255, 255));
+        tblTable.setShowGrid(true);
+        jScrollPane1.setViewportView(tblTable);
 
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(30, 150, 880, 430);
@@ -101,6 +106,20 @@ public class Reservation extends javax.swing.JFrame {
         jPanel1.add(jLabel2);
         jLabel2.setBounds(550, 70, 110, 48);
 
+        jButton1.setBackground(new java.awt.Color(11, 50, 69));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Back");
+        jPanel1.add(jButton1);
+        jButton1.setBounds(30, 600, 80, 39);
+
+        btnBookReserve.setBackground(new java.awt.Color(11, 50, 69));
+        btnBookReserve.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnBookReserve.setForeground(new java.awt.Color(255, 255, 255));
+        btnBookReserve.setText("Reserve a Book");
+        jPanel1.add(btnBookReserve);
+        btnBookReserve.setBounds(710, 600, 200, 39);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -109,12 +128,13 @@ public class Reservation extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
-        setVisible(true);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -154,11 +174,13 @@ public class Reservation extends javax.swing.JFrame {
     // }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBookReserve;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable tblTable;
     // End of variables declaration//GEN-END:variables
 }
