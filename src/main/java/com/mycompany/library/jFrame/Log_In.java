@@ -46,7 +46,7 @@ public class Log_In extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
         jPanel1.setLayout(null);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Clemence\\Desktop\\LMSImages\\Icons\\background.jpg")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("resources\\images\\background.jpg")); // NOI18N
         jPanel1.add(jLabel1);
         jLabel1.setBounds(0, 0, 480, 450);
 
@@ -54,7 +54,7 @@ public class Log_In extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
         jPanel2.setLayout(null);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Clemence\\Desktop\\LMSImages\\Icons\\logo.jpg")); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon("resources\\images\\logo.jpg")); // NOI18N
         jLabel2.setBorder(javax.swing.BorderFactory.createMatteBorder(5, 5, 0, 5, new java.awt.Color(0, 0, 0)));
         jPanel2.add(jLabel2);
         jLabel2.setBounds(0, 0, 430, 100);
@@ -134,16 +134,16 @@ public class Log_In extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        User user = new User(txtAdmin.getText(), txtPassword.getText());
-        user.showInfo(); // debug only
-        if(user.isAdmin()) {
-            System.out.println("User is admin");
-        } else if(!user.isAdmin() && user.isValidUser()) {
-            System.out.println("User is a regular user");
-        } else {
-            System.out.println("Unknown user");
-        }
-        setVisible(false); // hide window
+        // User user = new User(txtAdmin.getText(), txtPassword.getText());
+        // user.showInfo(); // debug only
+        // if(user.isAdmin()) {
+        //     System.out.println("User is admin");
+        // } else if(!user.isAdmin() && user.isValidUser()) {
+        //     System.out.println("User is a regular user");
+        // } else {
+        //     System.out.println("Unknown user");
+        // }
+        // setVisible(false); // hide window
     }//GEN-LAST:event_btnLoginActionPerformed
 
     /**

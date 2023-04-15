@@ -5,7 +5,6 @@
 package com.mycompany.library;
 
 import com.mycompany.library.jFrame.Log_In;
-import java.util.Scanner;
 
 /**
  *
