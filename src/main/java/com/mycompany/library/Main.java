@@ -14,7 +14,6 @@ import com.mycompany.library.jFrame.Log_In;
 
 public class Main {
     public static void main(String[] args) {
-        Log_In.main();
-        
+        new Log_In();
     }
 }

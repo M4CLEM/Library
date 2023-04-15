@@ -1,5 +1,9 @@
 package com.mycompany.library;
 
+import java.io.File;  // Import the File class
+import java.io.FileNotFoundException;  // Import this class to handle errors
+import java.util.Scanner; // Import the Scanner class to read text files
+
 public class User {
     private String username = "";
     private String email = "";
@@ -16,7 +20,33 @@ public class User {
         }
         password = pw;
 
-        if((username.equals("Admin") || email.equals("admin@gmail.com")) && password.equals("adminpw")) {
+        String admin_name = "";
+        String admin_pw = "";
+
+        try {
+            File file = new File("resources/credentials/admin.txt");
+            Scanner read = new Scanner(file);
+            int i = 0;
+            while(i < 2 && read.hasNextLine()) {
+                if(i < 2) {
+                    if(i == 0) {
+                        admin_name = read.nextLine();
+                    } else if(i == 1) {
+                        admin_pw = read.nextLine();
+                    }
+                    i++;
+                }
+            }
+            read.close();
+        } catch(FileNotFoundException e) {
+            System.out.println("[Error] File not found");
+            e.printStackTrace();
+        }
+
+        System.out.println("Admin username: " + admin_name);
+        System.out.println("Admin password: " + admin_pw);
+
+        if((username.equals(admin_name) || email.equals(admin_name)) && password.equals(admin_pw)) {
             admin = true;
         }
     }
