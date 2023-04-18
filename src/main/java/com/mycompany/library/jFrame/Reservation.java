@@ -13,8 +13,8 @@ public class Reservation extends javax.swing.JFrame {
     /**
      * Creates new form Reservation
      */
-    public Reservation(User user) {
-        initComponents(user);
+    public Reservation() {
+        initComponents();
     }
 
     /**
@@ -135,6 +135,7 @@ public class Reservation extends javax.swing.JFrame {
 
         pack();
         setLocationRelativeTo(null);
+        setVisible(true);
     }// </editor-fold>//GEN-END:initComponents
 
     /**

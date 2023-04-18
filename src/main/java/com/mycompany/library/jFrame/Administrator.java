@@ -109,6 +109,7 @@ public class Administrator extends javax.swing.JFrame {
         );
 
         pack();
+        setVisible(true);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnViewRecordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewRecordsActionPerformed
