@@ -5,9 +5,9 @@
 package com.mycompany.library.jFrame;
 
 import java.awt.Color;
-
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
 
 import com.mycompany.library.User;
@@ -51,7 +51,7 @@ public class Log_In extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
         jPanel1.setLayout(null);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Clemence\\Desktop\\LMSImages\\Icons\\background.jpg")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("resources/images/background.jpg")); // NOI18N
         jPanel1.add(jLabel1);
         jLabel1.setBounds(0, 0, 480, 450);
 
@@ -59,7 +59,7 @@ public class Log_In extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
         jPanel2.setLayout(null);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Clemence\\Desktop\\LMSImages\\Icons\\logo.jpg")); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon("resources/images/logo.jpg")); // NOI18N
         jLabel2.setBorder(javax.swing.BorderFactory.createMatteBorder(5, 5, 0, 5, new java.awt.Color(0, 0, 0)));
         jPanel2.add(jLabel2);
         jLabel2.setBounds(0, 0, 430, 100);
@@ -101,25 +101,23 @@ public class Log_In extends javax.swing.JFrame {
         btnLogin.setBackground(new java.awt.Color(11, 50, 69));
         btnLogin.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnLogin.setForeground(new java.awt.Color(255, 255, 255));
-        btnLogin.setText("Guest");
+        btnLogin.setText("Login");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-<<<<<<< HEAD
                 User user = btnLoginActionPerformed(evt);
-                if(user.isAdmin() || user.isValidUser()) {
+                if(user.isAdmin()) {
                     dispose(); // dispose login window
-                    new Reservation(user); // proceed to reservation window
+                    new Administrator(); // proceed to admin window
+                } else if(user.isValidUser()) {
+                    dispose();
+                    new Reservation();
+                } else if(user.getUsername().isEmpty() && user.getEmail().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "No username provided", "Login Failed", JOptionPane.ERROR_MESSAGE);
+                } else if(user.getPassword().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "No password provided", "Login Failed", JOptionPane.ERROR_MESSAGE);
                 } else {
-                    JLabel login_fail = new JLabel();
-                    login_fail.setText("Incorrect Username or Password");
-                    login_fail.setForeground(Color.yellow);
-                    jPanel2.add(login_fail);
-                    jPanel2.revalidate(); // revalidate the container
-                    jPanel2.repaint(); // repaint the container
+                    JOptionPane.showMessageDialog(null, "Incorrect Username or Password", "Login Failed", JOptionPane.ERROR_MESSAGE);
                 }
-=======
-                btnLoginActionPerformed(evt);
->>>>>>> a4b89a795a381456d391ed065c7cdf5106a70402
             }
         });
         jPanel2.add(btnLogin);
@@ -128,10 +126,11 @@ public class Log_In extends javax.swing.JFrame {
         btnLogin1.setBackground(new java.awt.Color(11, 50, 69));
         btnLogin1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnLogin1.setForeground(new java.awt.Color(255, 255, 255));
-        btnLogin1.setText("Login");
+        btnLogin1.setText("Guest");
         btnLogin1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogin1ActionPerformed(evt);
+                //btnLogin1ActionPerformed(evt);
+                new Reservation();
             }
         });
         jPanel2.add(btnLogin1);
@@ -154,6 +153,7 @@ public class Log_In extends javax.swing.JFrame {
 
         pack();
         setLocationRelativeTo(null);
+        setVisible(true);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAdminActionPerformed
@@ -176,37 +176,37 @@ public class Log_In extends javax.swing.JFrame {
      * @param args the command line arguments
      */
 
-    // public static void main() {
-    //     /* Set the Nimbus look and feel */
-    //     //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-    //     /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-    //      * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-    //      */
-    //     try {
-    //         for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-    //             if ("Nimbus".equals(info.getName())) {
-    //                 javax.swing.UIManager.setLookAndFeel(info.getClassName());
-    //                 break;
-    //             }
-    //         }
-    //     } catch (ClassNotFoundException ex) {
-    //         java.util.logging.Logger.getLogger(Log_In.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    //     } catch (InstantiationException ex) {
-    //         java.util.logging.Logger.getLogger(Log_In.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    //     } catch (IllegalAccessException ex) {
-    //         java.util.logging.Logger.getLogger(Log_In.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    //     } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-    //         java.util.logging.Logger.getLogger(Log_In.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    //     }
-    //     //</editor-fold>
+    public static void main() {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Log_In.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Log_In.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Log_In.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Log_In.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
 
-    //     /* Create and display the form */
-    //     java.awt.EventQueue.invokeLater(new Runnable() {
-    //         public void run() {
-    //             new Log_In().setVisible(true);
-    //         }
-    //     });
-    // }
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Log_In().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
