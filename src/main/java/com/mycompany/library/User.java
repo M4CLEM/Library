@@ -38,13 +38,15 @@ public class User {
                 }
             }
             read.close();
+            admin_name = admin_name.trim(); // remove trailing whitespaces
+            admin_pw = admin_pw.trim();
         } catch(FileNotFoundException e) {
             System.out.println("[Error] File not found");
             e.printStackTrace();
         }
 
-        System.out.println("Admin username: " + admin_name);
-        System.out.println("Admin password: " + admin_pw);
+        // System.out.println("Admin username: " + admin_name);
+        // System.out.println("Admin password: " + admin_pw);
 
         if((username.equals(admin_name) || email.equals(admin_name)) && password.equals(admin_pw)) {
             admin = true;

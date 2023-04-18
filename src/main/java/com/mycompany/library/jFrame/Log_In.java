@@ -4,6 +4,10 @@
  */
 package com.mycompany.library.jFrame;
 
+import java.awt.Color;
+
+import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
 
 import com.mycompany.library.User;
@@ -104,7 +108,12 @@ public class Log_In extends javax.swing.JFrame {
                     dispose(); // dispose login window
                     new Reservation(user); // proceed to reservation window
                 } else {
-                    System.out.println("Incorrect Username or Password");
+                    JLabel login_fail = new JLabel();
+                    login_fail.setText("Incorrect Username or Password");
+                    login_fail.setForeground(Color.yellow);
+                    jPanel2.add(login_fail);
+                    jPanel2.revalidate(); // revalidate the container
+                    jPanel2.repaint(); // repaint the container
                 }
             }
         });
