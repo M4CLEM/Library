@@ -4,6 +4,10 @@
  */
 package com.mycompany.library.jFrame;
 import com.mycompany.library.User;
+import com.mysql.cj.xdevapi.Result;
+
+import java.awt.event.KeyEvent;
+import java.sql.*;
 /**
  *
  * @author Clemence
@@ -25,6 +29,10 @@ public class Reservation extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        String url = "jdbc:mysql://localhost:3306/library";
+        String user = "root";
+        String password = "ILovePlmun";
+        String query = "SELECT * FROM books WHERE LOWER(title) REGEXP ?";
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -115,6 +123,51 @@ public class Reservation extends javax.swing.JFrame {
         txtSearch.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(txtSearch);
         txtSearch.setBounds(670, 80, 240, 30);
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                String search = "^";
+                search += txtSearch.getText();
+                if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    try {
+                        Connection connection = DriverManager.getConnection(url, user, password);
+                        PreparedStatement statement = connection.prepareStatement(query);
+                        statement.setString(1, search);
+                        ResultSet result = statement.executeQuery();
+                        ResultSetMetaData rs = result.getMetaData();
+                        int column = 0;
+                        int row = 0;
+                        int n = rs.getColumnCount();
+                        while(result.next()) {
+                            row = result.getRow()-1;
+                            for(column = 1; column <= n; column++) {
+                                tblTable.setValueAt(result.getString(column), row, column-1);
+                            }
+                        }
+                        column = 0;
+                        row++;
+                        boolean empty_row = false;
+                        while(!empty_row) {
+                            empty_row = true;
+                            while(column < tblTable.getColumnCount()) {
+                                if(tblTable.getValueAt(row, column) != null) {
+                                    empty_row = false;
+                                    tblTable.setValueAt(null, row, column);
+                                }
+                                column++;
+                            }
+                            row++;
+                            column = 0;
+                        }
+                        result.close();
+                        statement.close();
+                        connection.close();
+                    } catch(SQLException exc) {
+                        exc.printStackTrace();
+                        System.out.println("Something Failed!");
+                    }
+                }
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
