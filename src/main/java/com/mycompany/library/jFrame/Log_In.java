@@ -105,18 +105,17 @@ public class Log_In extends javax.swing.JFrame {
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 User user = btnLoginActionPerformed(evt);
-                if(user.isAdmin()) {
-                    dispose(); // dispose login window
-                    new Administrator(); // proceed to admin window
-                } else if(user.isValidUser()) {
-                    dispose();
-                    new Reservation();
-                } else if(user.getUsername().isEmpty() && user.getEmail().isEmpty()) {
+                if(user.getUsername().isEmpty() && user.getEmail().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "No username provided", "Login Failed", JOptionPane.ERROR_MESSAGE);
                 } else if(user.getPassword().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "No password provided", "Login Failed", JOptionPane.ERROR_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Incorrect Username or Password", "Login Failed", JOptionPane.ERROR_MESSAGE);
+                    if(user.isAdmin()) {
+                        dispose();
+                        new Administrator();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Incorrect Username or Password", "Login Failed", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             }
         });
@@ -130,6 +129,7 @@ public class Log_In extends javax.swing.JFrame {
         btnLogin1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 //btnLogin1ActionPerformed(evt);
+                dispose();
                 new Reservation();
             }
         });
