@@ -6,8 +6,18 @@ package com.mycompany.library.jFrame;
 import com.mycompany.library.User;
 import com.mysql.cj.xdevapi.Result;
 
-import java.awt.event.KeyEvent;
+import java.awt.Font;
 import java.sql.*;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseAdapter;
+
+import java.awt.Color;
+import java.awt.Component;
 /**
  *
  * @author Clemence
@@ -32,7 +42,7 @@ public class Reservation extends javax.swing.JFrame {
         String url = "jdbc:mysql://localhost:3306/library";
         String user = "root";
         String password = "ILovePlmun";
-        String query = "SELECT * FROM books WHERE LOWER(title) REGEXP ?";
+        String query = "SELECT * FROM books WHERE LOWER(title) LIKE ?";
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -113,20 +123,43 @@ public class Reservation extends javax.swing.JFrame {
         });
         tblTable.setGridColor(new java.awt.Color(255, 255, 255));
         tblTable.setShowGrid(true);
+        tblTable.setFont(new Font("Consolas", Font.PLAIN, 14));
+        tblTable.setRowHeight(18);
+        tblTable.setDefaultEditor(Object.class, null);
+        tblTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tblTable.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt)
+            {
+                int r = tblTable.rowAtPoint(evt.getPoint());
+                int stock = Integer.parseInt((String)tblTable.getValueAt(r, 6));
+                if(tblTable.getValueAt(r, 0) == null || tblTable.getValueAt(r, 1) == null) {
+                    txtBookID.setText("");
+                    txtBookTitle.setText("");
+                } else {
+                    if(stock < 1) {
+                        txtBookID.setText("[NOT AVAILABLE]");
+                        txtBookTitle.setText("[NOT AVAILABLE]");
+                    } else {
+                        txtBookID.setText(tblTable.getValueAt(r, 0).toString());
+                        txtBookTitle.setText(tblTable.getValueAt(r, 1).toString());
+                    }
+                }
+            }
+        });
+
         jScrollPane1.setViewportView(tblTable);
 
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(30, 150, 880, 430);
 
         txtSearch.setBackground(new java.awt.Color(11, 50, 69));
-        txtSearch.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        txtSearch.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         txtSearch.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(txtSearch);
         txtSearch.setBounds(670, 80, 240, 30);
-        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtSearch.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
-                String search = "^";
-                search += txtSearch.getText();
+                String search = "%" + txtSearch.getText() + "%";
                 if(e.getKeyCode() == KeyEvent.VK_ENTER) {
                     clearTable();
                     try {
@@ -222,7 +255,7 @@ public class Reservation extends javax.swing.JFrame {
         btnBookReserve.setBackground(new java.awt.Color(11, 50, 69));
         btnBookReserve.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnBookReserve.setForeground(new java.awt.Color(255, 255, 255));
-        btnBookReserve.setText("Reserve ");
+        btnBookReserve.setText("Reserve");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -309,42 +342,6 @@ public class Reservation extends javax.swing.JFrame {
             }
         }
     }
-
-    /**
-     * @param args the command line arguments
-     */
-
-    // public static void main(String args[]) {
-    //     /* Set the Nimbus look and feel */
-    //     //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-    //     /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-    //      * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-    //      */
-    //     try {
-    //         for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-    //             if ("Nimbus".equals(info.getName())) {
-    //                 javax.swing.UIManager.setLookAndFeel(info.getClassName());
-    //                 break;
-    //             }
-    //         }
-    //     } catch (ClassNotFoundException ex) {
-    //         java.util.logging.Logger.getLogger(Reservation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    //     } catch (InstantiationException ex) {
-    //         java.util.logging.Logger.getLogger(Reservation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    //     } catch (IllegalAccessException ex) {
-    //         java.util.logging.Logger.getLogger(Reservation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    //     } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-    //         java.util.logging.Logger.getLogger(Reservation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    //     }
-    //     //</editor-fold>
-
-    //     /* Create and display the form */
-    //     java.awt.EventQueue.invokeLater(new Runnable() {
-    //         public void run() {
-    //             new Reservation().setVisible(true);
-    //         }
-    //     });
-    // }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBookReserve;
