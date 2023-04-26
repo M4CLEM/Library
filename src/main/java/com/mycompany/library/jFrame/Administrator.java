@@ -42,7 +42,7 @@ public class Administrator extends javax.swing.JFrame {
 
         btnViewRecords.setBackground(new java.awt.Color(27, 53, 86));
         btnViewRecords.setForeground(new java.awt.Color(255, 255, 255));
-        btnViewRecords.setIcon(new javax.swing.ImageIcon("C:\\Users\\Clemence\\Desktop\\Library Management System\\resources\\images\\edit.png")); // NOI18N
+        btnViewRecords.setIcon(new javax.swing.ImageIcon("resources/images/edit.png")); // NOI18N
         btnViewRecords.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnViewRecordsActionPerformed(evt);
@@ -51,7 +51,7 @@ public class Administrator extends javax.swing.JFrame {
 
         btnAddBooks.setBackground(new java.awt.Color(27, 53, 86));
         btnAddBooks.setForeground(new java.awt.Color(255, 255, 255));
-        btnAddBooks.setIcon(new javax.swing.ImageIcon("C:\\Users\\Clemence\\Desktop\\Library Management System\\resources\\images\\addbook.png")); // NOI18N
+        btnAddBooks.setIcon(new javax.swing.ImageIcon("resources/images/addbook.png")); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -137,6 +137,7 @@ public class Administrator extends javax.swing.JFrame {
         );
 
         pack();
+        setVisible(true);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnViewRecordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewRecordsActionPerformed
