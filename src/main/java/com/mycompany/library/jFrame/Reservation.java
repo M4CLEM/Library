@@ -4,25 +4,29 @@
  */
 package com.mycompany.library.jFrame;
 import com.mycompany.library.User;
+import com.mysql.cj.protocol.a.SqlDateValueEncoder;
 import com.mysql.cj.xdevapi.Result;
 
 import java.awt.Font;
 import java.sql.*;
-import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.JOptionPane;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import java.awt.Color;
-import java.awt.Component;
 /**
  *
  * @author Clemence
  */
 public class Reservation extends javax.swing.JFrame {
+    private String url = "jdbc:mysql://localhost:3306/library";
+    private String user = "root";
+    private String password = "ILovePlmun";
 
     /**
      * Creates new form Reservation
@@ -39,9 +43,6 @@ public class Reservation extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        String url = "jdbc:mysql://localhost:3306/library";
-        String user = "root";
-        String password = "ILovePlmun";
         String query = "SELECT * FROM books WHERE LOWER(title) LIKE ?";
 
         jPanel1 = new javax.swing.JPanel();
@@ -256,6 +257,26 @@ public class Reservation extends javax.swing.JFrame {
         btnBookReserve.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnBookReserve.setForeground(new java.awt.Color(255, 255, 255));
         btnBookReserve.setText("Reserve");
+        btnBookReserve.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+                if(txtFirstName.getText().isBlank()) {
+                    JOptionPane.showMessageDialog(null, "No First Name Provided", "Reservation Failed", JOptionPane.ERROR_MESSAGE);
+                } else if(txtLastName.getText().isBlank()) {
+                    JOptionPane.showMessageDialog(null, "No Last Name Provided", "Reservation Failed", JOptionPane.ERROR_MESSAGE);
+                } else if(txtEmail.getText().isBlank()) {
+                    JOptionPane.showMessageDialog(null, "No Email Provided", "Reservation Failed", JOptionPane.ERROR_MESSAGE);
+                } else if(txtBookID.getText().isBlank()) {
+                    JOptionPane.showMessageDialog(null, "No Book ID Provided", "Reservation Failed", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    if(!isValidBookId(txtBookID.getText())) {
+                        JOptionPane.showMessageDialog(null, "Invalid Book ID", "Reservation Failed", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        System.out.println("VALID");
+                    }
+                }
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -341,6 +362,28 @@ public class Reservation extends javax.swing.JFrame {
                 tblTable.setValueAt(null, i, j);
             }
         }
+    }
+
+    private boolean isValidBookId(String id)
+    {
+        if(id.length() != 13) {
+            return false;
+        }
+        boolean valid = false;
+        try {
+            Connection con = DriverManager.getConnection(url, user, password);
+            PreparedStatement stat = con.prepareStatement("SELECT book_id FROM books WHERE book_id = " + id);
+            ResultSet result = stat.executeQuery();
+            if(result.next()) {
+                valid = true;
+            }
+            result.close();
+            stat.close();
+            con.close();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return valid;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
