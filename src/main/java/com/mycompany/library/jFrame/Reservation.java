@@ -128,6 +128,7 @@ public class Reservation extends javax.swing.JFrame {
                 String search = "^";
                 search += txtSearch.getText();
                 if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    clearTable();
                     try {
                         Connection connection = DriverManager.getConnection(url, user, password);
                         PreparedStatement statement = connection.prepareStatement(query);
@@ -142,21 +143,6 @@ public class Reservation extends javax.swing.JFrame {
                             for(column = 1; column <= n; column++) {
                                 tblTable.setValueAt(result.getString(column), row, column-1);
                             }
-                        }
-                        column = 0;
-                        row++;
-                        boolean empty_row = false;
-                        while(!empty_row) {
-                            empty_row = true;
-                            while(column < tblTable.getColumnCount()) {
-                                if(tblTable.getValueAt(row, column) != null) {
-                                    empty_row = false;
-                                    tblTable.setValueAt(null, row, column);
-                                }
-                                column++;
-                            }
-                            row++;
-                            column = 0;
                         }
                         result.close();
                         statement.close();
@@ -314,6 +300,15 @@ public class Reservation extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void clearTable()
+    {
+        for(int i = 0; i < tblTable.getRowCount(); i++) {
+            for(int j = 0; j < tblTable.getColumnCount(); j++) {
+                tblTable.setValueAt(null, i, j);
+            }
+        }
+    }
 
     /**
      * @param args the command line arguments
