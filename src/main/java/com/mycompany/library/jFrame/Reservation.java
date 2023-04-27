@@ -7,9 +7,12 @@ import com.mycompany.library.User;
 import com.mysql.cj.protocol.a.SqlDateValueEncoder;
 import com.mysql.cj.xdevapi.Result;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.sql.*;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JOptionPane;
 
 import java.awt.event.KeyEvent;
@@ -80,7 +83,7 @@ public class Reservation extends javax.swing.JFrame {
 
         tblTable.setBackground(new java.awt.Color(11, 50, 69));
         tblTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tblTable.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        tblTable.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         tblTable.setForeground(new java.awt.Color(255, 255, 255));
         tblTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -132,17 +135,23 @@ public class Reservation extends javax.swing.JFrame {
             public void mouseClicked(MouseEvent evt)
             {
                 int r = tblTable.rowAtPoint(evt.getPoint());
-                int stock = Integer.parseInt((String)tblTable.getValueAt(r, 6));
-                if(tblTable.getValueAt(r, 0) == null || tblTable.getValueAt(r, 1) == null) {
-                    txtBookID.setText("");
-                    txtBookTitle.setText("");
+                if(tblTable.getValueAt(r, 0) == null) {
+                    txtBookID.setText("Select a book");
+                    txtBookTitle.setText("Select a book");
+                    txtBookID.setForeground(Color.gray);
+                    txtBookTitle.setForeground(Color.gray);
                 } else {
+                    int stock = Integer.parseInt((String)tblTable.getValueAt(r, 6));
                     if(stock < 1) {
                         txtBookID.setText("[NOT AVAILABLE]");
                         txtBookTitle.setText("[NOT AVAILABLE]");
+                        txtBookID.setForeground(Color.red);
+                        txtBookTitle.setForeground(Color.red);
                     } else {
                         txtBookID.setText(tblTable.getValueAt(r, 0).toString());
                         txtBookTitle.setText(tblTable.getValueAt(r, 1).toString());
+                        txtBookID.setForeground(Color.white);
+                        txtBookTitle.setForeground(Color.white);
                     }
                 }
             }
@@ -154,7 +163,7 @@ public class Reservation extends javax.swing.JFrame {
         jScrollPane1.setBounds(30, 150, 880, 430);
 
         txtSearch.setBackground(new java.awt.Color(11, 50, 69));
-        txtSearch.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txtSearch.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         txtSearch.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(txtSearch);
         txtSearch.setBounds(670, 80, 240, 30);
@@ -189,14 +198,14 @@ public class Reservation extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Consolas", 0, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Search");
         jPanel1.add(jLabel2);
         jLabel2.setBounds(550, 70, 110, 48);
 
         jButton1.setBackground(new java.awt.Color(11, 50, 69));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Back");
         jPanel1.add(jButton1);
@@ -205,58 +214,61 @@ public class Reservation extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(27, 53, 86));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("First Name:");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Middle Name:");
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Last Name:");
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Email:");
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Book ID:");
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Book Title:");
 
         txtFirstName.setBackground(new java.awt.Color(11, 50, 69));
-        txtFirstName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtFirstName.setFont(new java.awt.Font("Consolas", 0, 20)); // NOI18N
         txtFirstName.setForeground(new java.awt.Color(255, 255, 255));
 
         txtMiddleName.setBackground(new java.awt.Color(11, 50, 69));
-        txtMiddleName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtMiddleName.setFont(new java.awt.Font("Consolas", 0, 20)); // NOI18N
         txtMiddleName.setForeground(new java.awt.Color(255, 255, 255));
 
         txtLastName.setBackground(new java.awt.Color(11, 50, 69));
-        txtLastName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtLastName.setFont(new java.awt.Font("Consolas", 0, 20)); // NOI18N
         txtLastName.setForeground(new java.awt.Color(255, 255, 255));
 
         txtBookID.setBackground(new java.awt.Color(11, 50, 69));
-        txtBookID.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtBookID.setForeground(new java.awt.Color(255, 255, 255));
+        txtBookID.setFont(new java.awt.Font("Consolas", 0, 20)); // NOI18N
+        txtBookID.setText("Select a book");
+        txtBookID.setForeground(Color.gray);
         txtBookID.setEditable(false);
 
         txtEmail.setBackground(new java.awt.Color(11, 50, 69));
-        txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtEmail.setFont(new java.awt.Font("Consolas", 0, 20)); // NOI18N
         txtEmail.setForeground(new java.awt.Color(255, 255, 255));
 
         txtBookTitle.setBackground(new java.awt.Color(11, 50, 69));
-        txtBookTitle.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtBookTitle.setFont(new java.awt.Font("Consolas", 0, 20)); // NOI18N
         txtBookTitle.setForeground(new java.awt.Color(255, 255, 255));
+        txtBookTitle.setText("Select a book");
+        txtBookTitle.setForeground(Color.gray);
         txtBookTitle.setEditable(false);
 
         btnBookReserve.setBackground(new java.awt.Color(11, 50, 69));
-        btnBookReserve.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnBookReserve.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         btnBookReserve.setForeground(new java.awt.Color(255, 255, 255));
         btnBookReserve.setText("Reserve");
         btnBookReserve.addActionListener(new ActionListener() {
