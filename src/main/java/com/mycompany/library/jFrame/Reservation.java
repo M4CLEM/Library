@@ -244,6 +244,7 @@ public class Reservation extends javax.swing.JFrame {
         txtBookID.setBackground(new java.awt.Color(11, 50, 69));
         txtBookID.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtBookID.setForeground(new java.awt.Color(255, 255, 255));
+        txtBookID.setEditable(false);
 
         txtEmail.setBackground(new java.awt.Color(11, 50, 69));
         txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -252,6 +253,7 @@ public class Reservation extends javax.swing.JFrame {
         txtBookTitle.setBackground(new java.awt.Color(11, 50, 69));
         txtBookTitle.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtBookTitle.setForeground(new java.awt.Color(255, 255, 255));
+        txtBookTitle.setEditable(false);
 
         btnBookReserve.setBackground(new java.awt.Color(11, 50, 69));
         btnBookReserve.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -269,10 +271,30 @@ public class Reservation extends javax.swing.JFrame {
                 } else if(txtBookID.getText().isBlank()) {
                     JOptionPane.showMessageDialog(null, "No Book ID Provided", "Reservation Failed", JOptionPane.ERROR_MESSAGE);
                 } else {
-                    if(!isValidBookId(txtBookID.getText())) {
-                        JOptionPane.showMessageDialog(null, "Invalid Book ID", "Reservation Failed", JOptionPane.ERROR_MESSAGE);
+                    // String first_name = txtFirstName.getText().trim();
+                    // String middle_name = txtMiddleName.getText().trim();
+                    // String last_name = txtLastName.getText().trim();
+                    // String email = txtEmail.getText().trim();
+                    
+                    // try {
+                    //     Connection con = DriverManager.getConnection(url, user, password);
+                    //     PreparedStatement stat = null;
+                    //     ResultSet result = null;
+                    //     int user_id = getUserId(first_name, middle_name, last_name, email);
+                    //     if(user_id <= 0) {
+                    //         stat = con.prepareStatement("INSERT INTO users (first_name, middle_name, last_name, email) VALUES (?, ?, ?, ?)");
+                    //         stat.setString(1, first_name);
+                    //         stat.setString(2, middle_name);
+                    //         stat.setString(3, last_name);
+                    //         stat.setString(4, email);
+                    //         stat.executeUpdate();
+                    //     }
+                    //     stat = con.prepareStatement("INSERT INTO reservations (user_id, book_id, reservation_start, reservation_end) VALUES (?, ?, NOW(), ?)");
+                    // }
+                    if(getUserId(txtFirstName.getText().trim(), txtMiddleName.getText().trim(), txtLastName.getText().trim(), txtEmail.getText().trim()) > 0) {
+                        System.out.println("User Exists");
                     } else {
-                        System.out.println("VALID");
+                        System.out.println("User Does Not Exists");
                     }
                 }
             }
@@ -364,26 +386,23 @@ public class Reservation extends javax.swing.JFrame {
         }
     }
 
-    private boolean isValidBookId(String id)
+    private int getUserId(String first_name, String middle_name, String last_name, String email)
     {
-        if(id.length() != 13) {
-            return false;
-        }
-        boolean valid = false;
         try {
             Connection con = DriverManager.getConnection(url, user, password);
-            PreparedStatement stat = con.prepareStatement("SELECT book_id FROM books WHERE book_id = " + id);
+            PreparedStatement stat = con.prepareStatement("SELECT user_id FROM users WHERE first_name = ? AND middle_name = ? AND last_name = ? AND email = ?");
+            stat.setString(1, first_name);
+            stat.setString(2, middle_name);
+            stat.setString(3, last_name);
+            stat.setString(4, email);
             ResultSet result = stat.executeQuery();
             if(result.next()) {
-                valid = true;
+                return result.getInt(1);
             }
-            result.close();
-            stat.close();
-            con.close();
         } catch(SQLException e) {
             e.printStackTrace();
         }
-        return valid;
+        return 0;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
