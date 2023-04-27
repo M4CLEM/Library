@@ -13,6 +13,7 @@ import java.sql.*;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.event.KeyEvent;
@@ -130,7 +131,7 @@ public class Reservation extends javax.swing.JFrame {
         tblTable.setFont(new Font("Consolas", Font.PLAIN, 14));
         tblTable.setRowHeight(18);
         tblTable.setDefaultEditor(Object.class, null);
-        tblTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tblTable.getTableHeader().setReorderingAllowed(false);
         tblTable.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt)
             {
@@ -198,18 +199,18 @@ public class Reservation extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Consolas", 0, 36)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Consolas", 0, 30)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Search");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(550, 70, 110, 48);
+        jLabel2.setBounds(550, 75, 110, 48);
 
         jButton1.setBackground(new java.awt.Color(11, 50, 69));
-        jButton1.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Back");
         jPanel1.add(jButton1);
-        jButton1.setBounds(30, 600, 80, 39);
+        jButton1.setBounds(30, 585, 80, 39);
 
         jPanel2.setBackground(new java.awt.Color(27, 53, 86));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
