@@ -133,17 +133,23 @@ public class Reservation extends javax.swing.JFrame {
             public void mouseClicked(MouseEvent evt)
             {
                 int r = tblTable.rowAtPoint(evt.getPoint());
-                int stock = Integer.parseInt((String)tblTable.getValueAt(r, 6));
                 if(tblTable.getValueAt(r, 0) == null || tblTable.getValueAt(r, 1) == null) {
-                    txtBookID.setText("");
-                    txtBookTitle.setText("");
+                    txtBookID.setText("[EMPTY CELL]");
+                    txtBookTitle.setText("[EMPTY CELL]");
+                    txtBookID.setForeground(Color.gray);
+                    txtBookTitle.setForeground(Color.gray);
                 } else {
+                    int stock = Integer.parseInt((String)tblTable.getValueAt(r, 6));
                     if(stock < 1) {
                         txtBookID.setText("[NOT AVAILABLE]");
                         txtBookTitle.setText("[NOT AVAILABLE]");
+                        txtBookID.setForeground(Color.red);
+                        txtBookTitle.setForeground(Color.red);
                     } else {
                         txtBookID.setText(tblTable.getValueAt(r, 0).toString());
                         txtBookTitle.setText(tblTable.getValueAt(r, 1).toString());
+                        txtBookID.setForeground(Color.white);
+                        txtBookTitle.setForeground(Color.white);
                     }
                 }
             }
@@ -213,7 +219,8 @@ public class Reservation extends javax.swing.JFrame {
 
         txtBookID.setBackground(new java.awt.Color(11, 50, 69));
         txtBookID.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtBookID.setForeground(new java.awt.Color(255, 255, 255));
+        txtBookID.setForeground(Color.gray);
+        txtBookID.setText("Select a book");
 
         txtEmail.setBackground(new java.awt.Color(11, 50, 69));
         txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -221,7 +228,8 @@ public class Reservation extends javax.swing.JFrame {
 
         txtBookTitle.setBackground(new java.awt.Color(11, 50, 69));
         txtBookTitle.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtBookTitle.setForeground(new java.awt.Color(255, 255, 255));
+        txtBookTitle.setForeground(Color.gray);
+        txtBookTitle.setText("Select a book");
 
         btnBookReserve.setBackground(new java.awt.Color(11, 50, 69));
         btnBookReserve.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -316,15 +324,6 @@ public class Reservation extends javax.swing.JFrame {
         }
     }
 
-    // private class MouseAction implements MouseListener {
-    //     public void mousePressed(MouseEvent e)
-    //     {
-    //         int row = tblTable.rowAtPoint(e.getPoint());
-    //         txtBookID.setText(tblTable.getValueAt(row, 0).toString());
-    //         txtBookTitle.setText(tblTable.getValueAt(row, 1).toString());
-    //     }
-    // }
-
     private void setTableValuesFromSearch()
     {
         if(txtSearch.getText().isBlank()) {
@@ -333,19 +332,25 @@ public class Reservation extends javax.swing.JFrame {
         clearTable();
         String search = "%" + txtSearch.getText() + "%";
         try {
-            Connection con = DriverManager.getConnection(url, user, password);
-            PreparedStatement stat = con.prepareStatement("SELECT * FROM books WHERE LOWER(title) LIKE ?");
-            stat.setString(1, search);
-            ResultSet result = stat.executeQuery();
+            Connection connection = DriverManager.getConnection(url, user, password);
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM books WHERE LOWER(title) LIKE ?");
+            statement.setString(1, search);
+            ResultSet result = statement.executeQuery();
+            ResultSetMetaData rs = result.getMetaData();
+            int column = 0;
             int row = 0;
+            int n = rs.getColumnCount();
             while(result.next()) {
-                for(int i = 1; i <= 7; i++) {
-                    tblTable.setValueAt(result.getString(i), row, i-1);
+                row = result.getRow()-1;
+                for(column = 1; column <= n; column++) {
+                    tblTable.setValueAt(result.getString(column), row, column-1);
                 }
-                row++;
             }
-        } catch(SQLException e) {
-            e.printStackTrace();
+            result.close();
+            statement.close();
+            connection.close();
+        } catch(SQLException exc) {
+            exc.printStackTrace();
         }
     }
 
@@ -371,6 +376,9 @@ public class Reservation extends javax.swing.JFrame {
             if(result.next()) {
                 return result.getInt(1);
             }
+            result.close();
+            stat.close();
+            con.close();
         } catch(SQLException e) {
             e.printStackTrace();
         }
