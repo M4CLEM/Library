@@ -337,6 +337,8 @@ public class Reservation extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No Last Name Provided", "Reservation Failed", JOptionPane.ERROR_MESSAGE);
         } else if(txtEmail.getText().isBlank()) {
             JOptionPane.showMessageDialog(null, "No Email Provided", "Reservation Failed", JOptionPane.ERROR_MESSAGE);
+        } else if(!isValidEmail(txtEmail.getText())) {
+            JOptionPane.showMessageDialog(null, "Invalid Email Provided", "Reservation Failed", JOptionPane.ERROR_MESSAGE);
         } else if(!isValidBookId(txtBookID.getText())) {
             JOptionPane.showMessageDialog(null, "Invalid Book ID", "Reservation Failed", JOptionPane.ERROR_MESSAGE);
         } else if(!isValidBookTitle(txtBookTitle.getText())) {
@@ -411,6 +413,14 @@ public class Reservation extends javax.swing.JFrame {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    private boolean isValidEmail(final String email)
+    {
+        if(!email.contains("@")) {
+            return false;
+        }
+        return true;
     }
 
     private boolean isValidBookId(final String id)
