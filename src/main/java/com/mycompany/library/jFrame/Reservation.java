@@ -22,6 +22,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 
 /**
  *
@@ -128,6 +129,25 @@ public class Reservation extends javax.swing.JFrame {
         tblTable.setGridColor(new java.awt.Color(255, 255, 255));
         tblTable.setShowGrid(true);
         jScrollPane1.setViewportView(tblTable);
+        tblTable.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt)
+            {
+                int r = tblTable.rowAtPoint(evt.getPoint());
+                int stock = Integer.parseInt((String)tblTable.getValueAt(r, 6));
+                if(tblTable.getValueAt(r, 0) == null || tblTable.getValueAt(r, 1) == null) {
+                    txtBookID.setText("");
+                    txtBookTitle.setText("");
+                } else {
+                    if(stock < 1) {
+                        txtBookID.setText("[NOT AVAILABLE]");
+                        txtBookTitle.setText("[NOT AVAILABLE]");
+                    } else {
+                        txtBookID.setText(tblTable.getValueAt(r, 0).toString());
+                        txtBookTitle.setText(tblTable.getValueAt(r, 1).toString());
+                    }
+                }
+            }
+        });
 
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(30, 150, 880, 430);
@@ -137,6 +157,7 @@ public class Reservation extends javax.swing.JFrame {
         txtSearch.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(txtSearch);
         txtSearch.setBounds(670, 80, 240, 30);
+        txtSearch.addActionListener(new ComponentAction());
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -205,11 +226,7 @@ public class Reservation extends javax.swing.JFrame {
         btnBookReserve.setBackground(new java.awt.Color(11, 50, 69));
         btnBookReserve.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnBookReserve.setForeground(new java.awt.Color(255, 255, 255));
-<<<<<<< HEAD
         btnBookReserve.setText("Reserve");
-=======
-        btnBookReserve.setText("Reserve ");
->>>>>>> a35c5c49af179c1e9a754b330215b7d8a15b2274
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -285,7 +302,52 @@ public class Reservation extends javax.swing.JFrame {
 
         pack();
         setLocationRelativeTo(null);
+        setVisible(true);
     }// </editor-fold>//GEN-END:initComponents
+
+
+    private class ComponentAction implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            if(e.getSource() == txtSearch) {
+                setTableValuesFromSearch();
+            }
+        }
+    }
+
+    // private class MouseAction implements MouseListener {
+    //     public void mousePressed(MouseEvent e)
+    //     {
+    //         int row = tblTable.rowAtPoint(e.getPoint());
+    //         txtBookID.setText(tblTable.getValueAt(row, 0).toString());
+    //         txtBookTitle.setText(tblTable.getValueAt(row, 1).toString());
+    //     }
+    // }
+
+    private void setTableValuesFromSearch()
+    {
+        if(txtSearch.getText().isBlank()) {
+            return;
+        }
+        clearTable();
+        String search = "%" + txtSearch.getText() + "%";
+        try {
+            Connection con = DriverManager.getConnection(url, user, password);
+            PreparedStatement stat = con.prepareStatement("SELECT * FROM books WHERE LOWER(title) LIKE ?");
+            stat.setString(1, search);
+            ResultSet result = stat.executeQuery();
+            int row = 0;
+            while(result.next()) {
+                for(int i = 1; i <= 7; i++) {
+                    tblTable.setValueAt(result.getString(i), row, i-1);
+                }
+                row++;
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void clearTable()
     {
