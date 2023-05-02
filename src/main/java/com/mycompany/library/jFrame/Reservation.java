@@ -205,7 +205,11 @@ public class Reservation extends javax.swing.JFrame {
         btnBookReserve.setBackground(new java.awt.Color(11, 50, 69));
         btnBookReserve.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnBookReserve.setForeground(new java.awt.Color(255, 255, 255));
+<<<<<<< HEAD
         btnBookReserve.setText("Reserve");
+=======
+        btnBookReserve.setText("Reserve ");
+>>>>>>> a35c5c49af179c1e9a754b330215b7d8a15b2274
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -281,7 +285,6 @@ public class Reservation extends javax.swing.JFrame {
 
         pack();
         setLocationRelativeTo(null);
-        setVisible(true);
     }// </editor-fold>//GEN-END:initComponents
 
     private void clearTable()
