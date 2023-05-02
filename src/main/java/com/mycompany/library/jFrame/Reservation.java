@@ -221,6 +221,7 @@ public class Reservation extends javax.swing.JFrame {
         txtBookID.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtBookID.setForeground(Color.gray);
         txtBookID.setText("Select a book");
+        txtBookID.setEditable(false);
 
         txtEmail.setBackground(new java.awt.Color(11, 50, 69));
         txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -230,11 +231,13 @@ public class Reservation extends javax.swing.JFrame {
         txtBookTitle.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtBookTitle.setForeground(Color.gray);
         txtBookTitle.setText("Select a book");
+        txtBookID.setEditable(false);
 
         btnBookReserve.setBackground(new java.awt.Color(11, 50, 69));
         btnBookReserve.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnBookReserve.setForeground(new java.awt.Color(255, 255, 255));
         btnBookReserve.setText("Reserve");
+        btnBookReserve.addActionListener(new ComponentAction());
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -320,7 +323,32 @@ public class Reservation extends javax.swing.JFrame {
         {
             if(e.getSource() == txtSearch) {
                 setTableValuesFromSearch();
+            } else if(e.getSource() == btnBookReserve) {
+                reserveUser();
             }
+        }
+    }
+
+    private void reserveUser()
+    {
+        if(txtFirstName.getText().isBlank()) {
+            JOptionPane.showMessageDialog(null, "No First Name Provided", "Reservation Failed", JOptionPane.ERROR_MESSAGE);
+        } else if(txtLastName.getText().isBlank()) {
+            JOptionPane.showMessageDialog(null, "No Last Name Provided", "Reservation Failed", JOptionPane.ERROR_MESSAGE);
+        } else if(txtEmail.getText().isBlank()) {
+            JOptionPane.showMessageDialog(null, "No Email Provided", "Reservation Failed", JOptionPane.ERROR_MESSAGE);
+        } else if(!isValidBookId(txtBookID.getText())) {
+            JOptionPane.showMessageDialog(null, "Invalid Book ID", "Reservation Failed", JOptionPane.ERROR_MESSAGE);
+        } else if(!isValidBookTitle(txtBookTitle.getText())) {
+            JOptionPane.showMessageDialog(null, "Invalid Book Title", "Reservation Failed", JOptionPane.ERROR_MESSAGE);
+        } else {
+            System.out.println("Reserved");
+            // try {
+            //     Connection con = DriverManager.getConnection(url, user, password);
+            //     PreparedStatement stat = con.prepareStatement();
+            // } catch(SQLException e) {
+            //     e.printStackTrace();
+            // }
         }
     }
 
@@ -383,6 +411,27 @@ public class Reservation extends javax.swing.JFrame {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    private boolean isValidBookId(final String id)
+    {
+        if(id.length() != 13 || txtBookID.getForeground() == Color.gray || txtBookID.getForeground() == Color.red) {
+            return false;
+        }
+        for(int i = 0; i < id.length(); i++) {
+            if(!Character.isDigit(id.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean isValidBookTitle(final String title)
+    {
+        if(txtBookTitle.getForeground() == Color.gray || txtBookID.getForeground() == Color.red) {
+            return false;
+        }
+        return true;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
