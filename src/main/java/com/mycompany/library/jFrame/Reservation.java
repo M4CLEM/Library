@@ -3,9 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.library.jFrame;
+import com.mycompany.library.models.*;
 import com.mycompany.library.User;
 import com.mysql.cj.protocol.a.SqlDateValueEncoder;
 import com.mysql.cj.xdevapi.Result;
+import com.mysql.cj.xdevapi.Table;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -128,6 +130,7 @@ public class Reservation extends javax.swing.JFrame {
         });
         tblTable.setGridColor(new java.awt.Color(255, 255, 255));
         tblTable.setShowGrid(true);
+        tblTable.setDefaultRenderer(Object.class, new MultiLineCell(tblTable.getRowHeight()));
         jScrollPane1.setViewportView(tblTable);
         tblTable.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt)
@@ -323,6 +326,7 @@ public class Reservation extends javax.swing.JFrame {
         {
             if(e.getSource() == txtSearch) {
                 setTableValuesFromSearch();
+                MultiLineCell.resizeToFitText(tblTable);
             } else if(e.getSource() == btnBookReserve) {
                 reserveUser();
             }
