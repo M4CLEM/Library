@@ -4,6 +4,8 @@
  */
 package com.mycompany.library.jFrame;
 import com.mycompany.library.User;
+import com.mycompany.library.Database;
+import com.mycompany.library.LibraryUtil;
 import com.mysql.cj.protocol.a.SqlDateValueEncoder;
 import com.mysql.cj.xdevapi.Result;
 
@@ -29,10 +31,6 @@ import java.awt.event.MouseListener;
  * @author Clemence
  */
 public class Reservation extends javax.swing.JFrame {
-    private String url = "jdbc:mysql://localhost:3306/library";
-    private String user = "root";
-    private String password = "ILovePlmun";
-
     /**
      * Creates new form Reservation
      */
@@ -337,16 +335,14 @@ public class Reservation extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No Last Name Provided", "Reservation Failed", JOptionPane.ERROR_MESSAGE);
         } else if(txtEmail.getText().isBlank()) {
             JOptionPane.showMessageDialog(null, "No Email Provided", "Reservation Failed", JOptionPane.ERROR_MESSAGE);
-        } else if(!isValidEmail(txtEmail.getText())) {
+        } else if(!LibraryUtil.isValidEmail(txtEmail.getText())) {
             JOptionPane.showMessageDialog(null, "Invalid Email Provided", "Reservation Failed", JOptionPane.ERROR_MESSAGE);
-        } else if(!isValidBookId(txtBookID.getText())) {
+        } else if(!LibraryUtil.isValidBookId(txtBookID.getText())) {
             JOptionPane.showMessageDialog(null, "Invalid Book ID", "Reservation Failed", JOptionPane.ERROR_MESSAGE);
-        } else if(!isValidBookTitle(txtBookTitle.getText())) {
-            JOptionPane.showMessageDialog(null, "Invalid Book Title", "Reservation Failed", JOptionPane.ERROR_MESSAGE);
         } else {
             System.out.println("Reserved");
             // try {
-            //     Connection con = DriverManager.getConnection(url, user, password);
+            //     Connection con = DriverManager.getConnection(Database.getUrl(), Database.getUsername(), Database.getPassword());
             //     PreparedStatement stat = con.prepareStatement();
             // } catch(SQLException e) {
             //     e.printStackTrace();
@@ -362,7 +358,7 @@ public class Reservation extends javax.swing.JFrame {
         clearTable();
         String search = "%" + txtSearch.getText() + "%";
         try {
-            Connection connection = DriverManager.getConnection(url, user, password);
+            Connection connection = DriverManager.getConnection(Database.getUrl(), Database.getUsername(), Database.getPassword());
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM books WHERE LOWER(title) LIKE ?");
             statement.setString(1, search);
             ResultSet result = statement.executeQuery();
@@ -391,57 +387,6 @@ public class Reservation extends javax.swing.JFrame {
                 tblTable.setValueAt(null, i, j);
             }
         }
-    }
-
-    private int getUserId(String first_name, String middle_name, String last_name, String email)
-    {
-        try {
-            Connection con = DriverManager.getConnection(url, user, password);
-            PreparedStatement stat = con.prepareStatement("SELECT user_id FROM users WHERE first_name = ? AND middle_name = ? AND last_name = ? AND email = ?");
-            stat.setString(1, first_name);
-            stat.setString(2, middle_name);
-            stat.setString(3, last_name);
-            stat.setString(4, email);
-            ResultSet result = stat.executeQuery();
-            if(result.next()) {
-                return result.getInt(1);
-            }
-            result.close();
-            stat.close();
-            con.close();
-        } catch(SQLException e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
-
-    private boolean isValidEmail(final String email)
-    {
-        if(!email.contains("@")) {
-            return false;
-        }
-        return true;
-    }
-
-    private boolean isValidBookId(final String id)
-    {
-        if(id.length() != 13 || txtBookID.getForeground() == Color.gray || txtBookID.getForeground() == Color.red) {
-            return false;
-        }
-        for(int i = 0; i < id.length(); i++) {
-            if(!Character.isDigit(id.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private boolean isValidBookTitle(final String title)
-    {
-        if(txtBookTitle.getForeground() == Color.gray || txtBookID.getForeground() == Color.red) {
-            return false;
-        }
-        return true;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

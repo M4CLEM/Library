@@ -83,7 +83,7 @@ public class Tracker extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Reservaation Tracker");
+        jLabel1.setText("Reservation Tracker");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -125,6 +125,7 @@ public class Tracker extends javax.swing.JFrame {
         );
 
         pack();
+        setVisible(true);
     }// </editor-fold>//GEN-END:initComponents
 
     /**

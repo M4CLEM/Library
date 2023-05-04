@@ -150,6 +150,7 @@ public class Records extends javax.swing.JFrame {
 
         pack();
         setLocationRelativeTo(null);
+        setVisible(true);
     }// </editor-fold>//GEN-END:initComponents
 
     /**

@@ -3,12 +3,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.library.jFrame;
+import com.mycompany.library.Database;
+import com.mycompany.library.LibraryUtil;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.sql.*;
 
 /**
  *
  * @author Clemence
  */
 public class add_Books extends javax.swing.JFrame {
+    
 
     /**
      * Creates new form add_Books
@@ -120,11 +127,13 @@ public class add_Books extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Reset");
+        jButton1.addActionListener(new ComponentAction());
 
         jButton2.setBackground(new java.awt.Color(11, 50, 69));
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Register");
+        jButton2.addActionListener(new ComponentAction());
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -218,6 +227,39 @@ public class add_Books extends javax.swing.JFrame {
         pack();
         setVisible(true);
     }// </editor-fold>//GEN-END:initComponents
+
+    private class ComponentAction implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            if(e.getSource() == jButton1) { // Reset
+                clearForm();
+            } else if(e.getSource() == jButton2) { // Register
+                registerBook();
+            }
+        }
+    }
+
+    private void clearForm()
+    {
+        txtBookID.setText("");
+        txtBookTitle.setText("");
+        txtAuthor.setText("");
+        txtPublisher.setText("");
+        txtPublishDate.setText("");
+        txtSubjectHeading.setText("");
+    }
+
+    private void registerBook()
+    {
+        return;
+        // try {
+        //     Connection con = DriverManager.getConnection(Database.getUrl(), Database.getUsername(), Database.getPassword());
+        //     PreparedStatement stat = con.prepareStatement("INSERT INTO books (book_id, title, author, publisher, publish_date, subject_heading)" + 
+        //     "VALUES (?, ?, ?, ?, ?, ?)");
+        //     stat.setString(1, txtBookID.getText());
+        // }
+    }
 
     /**
      * @param args the command line arguments
