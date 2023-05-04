@@ -14,9 +14,6 @@ public class MultiLineCellRenderer extends JTextArea implements TableCellRendere
         this.setLineWrap(true);
         this.setWrapStyleWord(true);
         this.setOpaque(true);
-        // this.setForeground(Color.white);
-        // this.setBackground(new java.awt.Color(11, 50, 69));
-        // this.setFont(new java.awt.Font("Segoe UI", 0, 12));
     }
 
     @Override
