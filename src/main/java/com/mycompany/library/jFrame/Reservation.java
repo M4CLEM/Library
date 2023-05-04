@@ -335,9 +335,9 @@ public class Reservation extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No Last Name Provided", "Reservation Failed", JOptionPane.ERROR_MESSAGE);
         } else if(txtEmail.getText().isBlank()) {
             JOptionPane.showMessageDialog(null, "No Email Provided", "Reservation Failed", JOptionPane.ERROR_MESSAGE);
-        } else if(!LibraryUtil.isValidEmail(txtEmail.getText())) {
+        } else if(!LibraryUtil.isValidEmailFormat(txtEmail.getText())) {
             JOptionPane.showMessageDialog(null, "Invalid Email Provided", "Reservation Failed", JOptionPane.ERROR_MESSAGE);
-        } else if(!LibraryUtil.isValidBookId(txtBookID.getText())) {
+        } else if(!LibraryUtil.isValidBookIdFormat(txtBookID.getText())) {
             JOptionPane.showMessageDialog(null, "Invalid Book ID", "Reservation Failed", JOptionPane.ERROR_MESSAGE);
         } else {
             System.out.println("Reserved");
