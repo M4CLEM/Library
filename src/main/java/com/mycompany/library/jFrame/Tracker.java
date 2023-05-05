@@ -4,6 +4,9 @@
  */
 package com.mycompany.library.jFrame;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /**
  *
  * @author Clemence
@@ -80,6 +83,7 @@ public class Tracker extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(11, 50, 69));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Back");
+        jButton1.addActionListener(new ComponentAction());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -127,6 +131,17 @@ public class Tracker extends javax.swing.JFrame {
         pack();
         setVisible(true);
     }// </editor-fold>//GEN-END:initComponents
+
+    private class ComponentAction implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            if(e.getSource() == jButton1) { // back
+                dispose();
+                new Administrator();
+            } 
+        }
+    }
 
     /**
      * @param args the command line arguments

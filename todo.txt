@@ -1,4 +1,7 @@
 To-Do List:
-- Create function to add the data inputted in reservation page to database
-- Create function to add and remove books from database in administrator page
 - Auto wrap text inside table cell when text is too long
+
+Book Reservation Columns
+User ID, Name, Email, Book ID, Reservation Start, Reservation End
+
+Return Table

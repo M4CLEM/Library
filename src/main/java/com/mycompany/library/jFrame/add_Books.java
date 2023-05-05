@@ -4,11 +4,16 @@
  */
 package com.mycompany.library.jFrame;
 import com.mycompany.library.Database;
-import com.mycompany.library.LibraryUtil;
+import com.mycompany.library.utilities.LibraryUtil;
 
 import java.awt.event.ActionListener;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.sql.*;
+import java.awt.event.FocusListener;
+import java.awt.event.FocusEvent;
+
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -111,11 +116,15 @@ public class add_Books extends javax.swing.JFrame {
 
         txtPublishDate.setBackground(new java.awt.Color(11, 50, 69));
         txtPublishDate.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtPublishDate.setForeground(new java.awt.Color(255, 255, 255));
-
+        txtPublishDate.setForeground(Color.GRAY);
+        txtPublishDate.setText("YYYY-MM-DD");
+        txtPublishDate.addFocusListener(new FocusAction());
+       
         txtSubjectHeading.setBackground(new java.awt.Color(11, 50, 69));
         txtSubjectHeading.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtSubjectHeading.setForeground(new java.awt.Color(255, 255, 255));
+        txtSubjectHeading.setForeground(Color.gray);
+        txtSubjectHeading.setText("Heading 1, Heading 2, Heading 3, ...");
+        txtSubjectHeading.addFocusListener(new FocusAction());
 
         txtSummary.setBackground(new java.awt.Color(11, 50, 69));
         txtSummary.setColumns(20);
@@ -236,6 +245,40 @@ public class add_Books extends javax.swing.JFrame {
                 clearForm();
             } else if(e.getSource() == jButton2) { // Register
                 registerBook();
+            } 
+        }
+    }
+
+    private class FocusAction implements FocusListener {
+        @Override
+        public void focusGained(FocusEvent e)
+        {
+            if(e.getSource() == txtPublishDate) {
+                if(txtPublishDate.getForeground() == Color.GRAY && txtPublishDate.getText().equals("YYYY-MM-DD")) {
+                    txtPublishDate.setText("");
+                    txtPublishDate.setForeground(Color.WHITE);
+                }
+            } else if(e.getSource() == txtSubjectHeading) {
+                if(txtSubjectHeading.getForeground() == Color.GRAY) {
+                    txtSubjectHeading.setText("");
+                    txtSubjectHeading.setForeground(Color.WHITE);
+                }
+            }
+        }
+
+        @Override
+        public void focusLost(FocusEvent e)
+        {
+            if(e.getSource() == txtPublishDate) {
+                if(txtPublishDate.getText().isBlank()) {
+                    txtPublishDate.setText("YYYY-MM-DD");
+                    txtPublishDate.setForeground(Color.GRAY);
+                }
+            } else if(e.getSource() == txtSubjectHeading) {
+                if(txtSubjectHeading.getText().isBlank()) {
+                    txtSubjectHeading.setText("Heading 1, Heading 2, Heading 3, ...");
+                    txtSubjectHeading.setForeground(Color.GRAY);
+                }
             }
         }
     }
@@ -246,28 +289,41 @@ public class add_Books extends javax.swing.JFrame {
         txtBookTitle.setText("");
         txtAuthor.setText("");
         txtPublisher.setText("");
-        txtPublishDate.setText("");
-        txtSubjectHeading.setText("");
+        if(!txtPublishDate.getText().isBlank() && txtPublishDate.getForeground() != Color.gray) {
+            txtPublishDate.setText("YYYY-MM-DD");
+            txtPublishDate.setForeground(Color.GRAY);
+        }
+        if(!txtSubjectHeading.getText().isBlank() && txtSubjectHeading.getForeground() != Color.gray) {
+            txtSubjectHeading.setText("Heading 1, Heading 2, Heading 3, ...");
+            txtSubjectHeading.setForeground(Color.GRAY);
+        }
     }
 
     private void registerBook()
     {
-        // if(!LibraryUtil.isValidBookIdFormat(txtBookID.getText())) {
-        //     return;
-        // }
-        // try {
-        //     Connection con = DriverManager.getConnection(Database.getUrl(), Database.getUsername(), Database.getPassword());
-        //     PreparedStatement stat = con.prepareStatement("INSERT INTO books (book_id, title, author, publisher, publish_date, subject_heading)" + 
-        //     "VALUES (?, ?, ?, ?, ?, ?)");
-        //     stat.setString(1, txtBookID.getText());
-        //     stat.setString(2, txtBookTitle.getText());
-        //     stat.setString(3, txtAuthor.getText());
-        //     stat.setString(4, txtPublisher.getText());
-        //     stat.setString(5, txtPublishDate.getText());
-        //     stat.setString(6, txtSubjectHeading.getText());
-
-        // }
+        if(!LibraryUtil.isValidBookIdFormat(txtBookID.getText())) {
+            JOptionPane.showMessageDialog(null, "Invalid Book ID Format", "Register Failed", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        try {
+            Connection con = DriverManager.getConnection(Database.getUrl(), Database.getUsername(), Database.getPassword());
+            PreparedStatement stat = con.prepareStatement("INSERT INTO books (book_id, title, author, publisher, publish_date, subject_heading)" + 
+            "VALUES (?, ?, ?, ?, ?, ?)");
+            stat.setString(1, txtBookID.getText());
+            stat.setString(2, txtBookTitle.getText());
+            stat.setString(3, txtAuthor.getText());
+            stat.setString(4, txtPublisher.getText());
+            stat.setString(5, txtPublishDate.getText());
+            stat.setString(6, txtSubjectHeading.getText());
+            stat.executeUpdate();
+        } catch(SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Something Went Wrong", "Register Failed", JOptionPane.ERROR_MESSAGE);
+        }
+        System.out.println("Registration Successful!");
     }
+
+
 
     /**
      * @param args the command line arguments

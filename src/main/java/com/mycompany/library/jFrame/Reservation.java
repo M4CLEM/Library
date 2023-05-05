@@ -3,28 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.library.jFrame;
-import com.mycompany.library.User;
+import com.mycompany.library.utilities.LibraryUtil;
 import com.mycompany.library.Database;
-import com.mycompany.library.LibraryUtil;
-import com.mysql.cj.protocol.a.SqlDateValueEncoder;
-import com.mysql.cj.xdevapi.Result;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.sql.*;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
 
 /**
  *

@@ -4,6 +4,9 @@
  */
 package com.mycompany.library.jFrame;
 
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 /**
  *
  * @author Clemence
@@ -45,16 +48,13 @@ public class Administrator extends javax.swing.JFrame {
         btnViewRecords.setForeground(new java.awt.Color(255, 255, 255));
         btnViewRecords.setIcon(new javax.swing.ImageIcon("C:\\Users\\Clemence\\Desktop\\Library Management System\\resources\\images\\edit.png")); // NOI18N
         btnViewRecords.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 4, true));
-        btnViewRecords.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnViewRecordsActionPerformed(evt);
-            }
-        });
+        btnViewRecords.addActionListener(new ComponentAction());
 
         btnAddBooks.setBackground(new java.awt.Color(27, 53, 86));
         btnAddBooks.setForeground(new java.awt.Color(255, 255, 255));
         btnAddBooks.setIcon(new javax.swing.ImageIcon("C:\\Users\\Clemence\\Desktop\\Library Management System\\resources\\images\\addbook.png")); // NOI18N
         btnAddBooks.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 4, true));
+        btnAddBooks.addActionListener(new ComponentAction());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -63,6 +63,7 @@ public class Administrator extends javax.swing.JFrame {
         btnLogOut.setBackground(new java.awt.Color(11, 50, 69));
         btnLogOut.setForeground(new java.awt.Color(255, 255, 255));
         btnLogOut.setText("Log Out");
+        btnLogOut.addActionListener(new ComponentAction());
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -72,6 +73,7 @@ public class Administrator extends javax.swing.JFrame {
         btnTracker.setForeground(new java.awt.Color(255, 255, 255));
         btnTracker.setIcon(new javax.swing.ImageIcon("C:\\Users\\Clemence\\Desktop\\Library Management System\\resources\\images\\tracker.png")); // NOI18N
         btnTracker.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 4, true));
+        btnTracker.addActionListener(new ComponentAction());
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -164,6 +166,26 @@ public class Administrator extends javax.swing.JFrame {
     private void btnViewRecordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewRecordsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnViewRecordsActionPerformed
+
+    private class ComponentAction implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            if(e.getSource() == btnViewRecords) {
+                dispose();
+                new Records();
+            } else if(e.getSource() == btnAddBooks) {
+                dispose();
+                new add_Books();
+            } else if(e.getSource() == btnTracker) {
+                dispose();
+                new Tracker();
+            } else if(e.getSource() == btnLogOut) {
+                dispose();
+                new Log_In();
+            }
+        }
+    }
 
     /**
      * @param args the command line arguments

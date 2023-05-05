@@ -4,11 +4,7 @@
  */
 package com.mycompany.library.jFrame;
 
-import java.awt.Color;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
 
 import com.mycompany.library.User;
 

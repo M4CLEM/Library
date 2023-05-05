@@ -1,7 +1,10 @@
-package com.mycompany.library;
+package com.mycompany.library.utilities;
 
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
+import com.mycompany.library.Database;
 import com.mysql.cj.xdevapi.Result;
 
 public class LibraryUtil {
@@ -31,10 +34,7 @@ public class LibraryUtil {
 
     public static boolean isValidEmailFormat(final String email)
     {
-        if(!email.contains("@")) {
-            return false;
-        }
-        return true;
+        return email.contains("@");
     }
 
     public static boolean isValidBookIdFormat(final String id)
@@ -46,6 +46,18 @@ public class LibraryUtil {
             if(!Character.isDigit(id.charAt(i))) {
                 return false;
             }
+        }
+        return true;
+    }
+
+    public static boolean isValidPublishDateFormat(final String date)
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        sdf.setLenient(false);
+        try {
+            sdf.parse(date);
+        } catch (ParseException e) {
+            return false;
         }
         return true;
     }

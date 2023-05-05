@@ -4,6 +4,9 @@
  */
 package com.mycompany.library.jFrame;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /**
  *
  * @author Clemence
@@ -42,6 +45,7 @@ public class Records extends javax.swing.JFrame {
         btnBack.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnBack.setForeground(new java.awt.Color(255, 255, 255));
         btnBack.setText("Back");
+        btnBack.addActionListener(new ComponentAction());
 
         tblRecords.setBackground(new java.awt.Color(11, 50, 69));
         tblRecords.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -152,6 +156,17 @@ public class Records extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
     }// </editor-fold>//GEN-END:initComponents
+
+    private class ComponentAction implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            if(e.getSource() == btnBack) {
+                dispose();
+                new Administrator();
+            }
+        }
+    }
 
     /**
      * @param args the command line arguments
