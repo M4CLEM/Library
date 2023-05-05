@@ -2,6 +2,7 @@ To-Do List:
 - Auto wrap text inside table cell when text is too long
 
 Book Reservation Columns
-User ID, Name, Email, Book ID, Reservation Start, Reservation End
+Reservation ID, User ID, Book ID, Reservation Start, Reservation End 
 
 Return Table
+Return ID, User ID, Book ID, Return Date
