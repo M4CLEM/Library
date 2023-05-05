@@ -34,6 +34,14 @@ public class CustomTextField extends JTextField implements FocusListener {
         addFocusListener(this);
     }
 
+    public String getRealText()
+    {
+        if(isPlaceholderDisplayed()) {
+            return "";
+        }
+        return getText();
+    }
+
     public String getPlaceholderText()
     {
         return placeholder;
