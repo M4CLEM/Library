@@ -164,6 +164,7 @@ public class Reservation extends javax.swing.JFrame {
         jButton1.setText("Back");
         jPanel1.add(jButton1);
         jButton1.setBounds(30, 600, 80, 39);
+        jButton1.addActionListener(new ComponentAction());
 
         jPanel2.setBackground(new java.awt.Color(27, 53, 86));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
@@ -312,6 +313,9 @@ public class Reservation extends javax.swing.JFrame {
                 setTableValuesFromSearch();
             } else if(e.getSource() == btnBookReserve) {
                 reserveUser();
+            } else if(e.getSource() == jButton1) { // Back
+                dispose();
+                new Log_In();
             }
         }
     }
