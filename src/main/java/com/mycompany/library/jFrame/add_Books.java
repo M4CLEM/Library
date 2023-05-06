@@ -52,14 +52,15 @@ public class add_Books extends javax.swing.JFrame {
         txtBookTitle = new javax.swing.JTextField();
         txtAuthor = new javax.swing.JTextField();
         txtPublisher = new javax.swing.JTextField();
-        txtPublishDate = new CustomTextField();
-        txtSubjectHeading = new CustomTextField();
+        txtPublishDate = new javax.swing.JTextField();
+        txtSubjectHeading = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblBooks = new javax.swing.JTable();
-        txtSearch = new CustomTextField();
+        txtSearch = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         btnEdit = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
@@ -118,24 +119,25 @@ public class add_Books extends javax.swing.JFrame {
         txtPublishDate.setBackground(new java.awt.Color(11, 50, 69));
         txtPublishDate.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtPublishDate.setForeground(new java.awt.Color(255, 255, 255));
-        txtPublishDate.setPlaceholderText("YYYY-MM-DD");
 
         txtSubjectHeading.setBackground(new java.awt.Color(11, 50, 69));
         txtSubjectHeading.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtSubjectHeading.setForeground(new java.awt.Color(255, 255, 255));
-        txtSubjectHeading.setPlaceholderText("Heading 1, Heading 2, Heading 3, ...");
 
         jButton1.setBackground(new java.awt.Color(11, 50, 69));
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Reset");
-        jButton1.addActionListener(new ComponentAction());
 
         jButton2.setBackground(new java.awt.Color(11, 50, 69));
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Register");
-        jButton2.addActionListener(new ComponentAction());
+
+        btnBack.setBackground(new java.awt.Color(11, 50, 69));
+        btnBack.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnBack.setForeground(new java.awt.Color(255, 255, 255));
+        btnBack.setText("Back");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -151,7 +153,8 @@ public class add_Books extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(jLabel6)
                             .addComponent(jLabel7)
-                            .addComponent(jLabel8))
+                            .addComponent(jLabel8)
+                            .addComponent(btnBack))
                         .addGap(73, 73, 73)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtSubjectHeading, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -160,9 +163,9 @@ public class add_Books extends javax.swing.JFrame {
                             .addComponent(txtAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtBookTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtBookID, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButton1)
-                                .addGap(49, 49, 49)
+                                .addGap(30, 30, 30)
                                 .addComponent(jButton2))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -205,7 +208,8 @@ public class add_Books extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(btnBack))
                 .addGap(75, 75, 75))
         );
 
@@ -264,7 +268,15 @@ public class add_Books extends javax.swing.JFrame {
         txtSearch.setBackground(new java.awt.Color(11, 50, 69));
         txtSearch.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtSearch.setForeground(new java.awt.Color(255, 255, 255));
-        txtSearch.setPlaceholderText("Search...");
+        txtSearch.setText("Search...");
+        txtSearch.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtSearchFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtSearchFocusLost(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
@@ -420,6 +432,7 @@ public class add_Books extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton jButton1;
@@ -440,9 +453,9 @@ public class add_Books extends javax.swing.JFrame {
     private javax.swing.JTextField txtAuthor;
     private javax.swing.JTextField txtBookID;
     private javax.swing.JTextField txtBookTitle;
-    private CustomTextField txtPublishDate;
+    private javax.swing.JTextField txtPublishDate;
     private javax.swing.JTextField txtPublisher;
-    private CustomTextField txtSearch;
-    private CustomTextField txtSubjectHeading;
+    private javax.swing.JTextField txtSearch;
+    private javax.swing.JTextField txtSubjectHeading;
     // End of variables declaration//GEN-END:variables
 }
