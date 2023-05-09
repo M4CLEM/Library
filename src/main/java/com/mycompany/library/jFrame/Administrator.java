@@ -46,13 +46,13 @@ public class Administrator extends javax.swing.JFrame {
 
         btnViewRecords.setBackground(new java.awt.Color(27, 53, 86));
         btnViewRecords.setForeground(new java.awt.Color(255, 255, 255));
-        btnViewRecords.setIcon(new javax.swing.ImageIcon("C:\\Users\\Clemence\\Desktop\\Library Management System\\resources\\images\\edit.png")); // NOI18N
+        btnViewRecords.setIcon(new javax.swing.ImageIcon("resources/images/edit.png")); // NOI18N
         btnViewRecords.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 4, true));
         btnViewRecords.addActionListener(new ComponentAction());
 
         btnAddBooks.setBackground(new java.awt.Color(27, 53, 86));
         btnAddBooks.setForeground(new java.awt.Color(255, 255, 255));
-        btnAddBooks.setIcon(new javax.swing.ImageIcon("C:\\Users\\Clemence\\Desktop\\Library Management System\\resources\\images\\addbook.png")); // NOI18N
+        btnAddBooks.setIcon(new javax.swing.ImageIcon("resources/images/addbook.png")); // NOI18N
         btnAddBooks.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 4, true));
         btnAddBooks.addActionListener(new ComponentAction());
 
@@ -71,7 +71,7 @@ public class Administrator extends javax.swing.JFrame {
 
         btnTracker.setBackground(new java.awt.Color(27, 53, 86));
         btnTracker.setForeground(new java.awt.Color(255, 255, 255));
-        btnTracker.setIcon(new javax.swing.ImageIcon("C:\\Users\\Clemence\\Desktop\\Library Management System\\resources\\images\\tracker.png")); // NOI18N
+        btnTracker.setIcon(new javax.swing.ImageIcon("resources/images/tracker.png")); // NOI18N
         btnTracker.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 4, true));
         btnTracker.addActionListener(new ComponentAction());
 

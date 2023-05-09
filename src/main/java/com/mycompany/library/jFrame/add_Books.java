@@ -344,6 +344,7 @@ public class add_Books extends javax.swing.JFrame {
         );
 
         pack();
+        setVisible(true);
     }// </editor-fold>//GEN-END:initComponents
 
     private class ComponentAction implements ActionListener {

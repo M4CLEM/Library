@@ -18,6 +18,7 @@ public class Returns extends javax.swing.JFrame {
      */
     public Returns() {
         initComponents();
+        setVisible(true);
     }
 
     /**

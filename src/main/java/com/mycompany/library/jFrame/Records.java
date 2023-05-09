@@ -18,6 +18,7 @@ public class Records extends javax.swing.JFrame {
      */
     public Records() {
         initComponents();
+        setVisible(true);
     }
 
     /**
