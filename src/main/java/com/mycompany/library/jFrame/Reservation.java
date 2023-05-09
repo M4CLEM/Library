@@ -5,10 +5,12 @@
 package com.mycompany.library.jFrame;
 import com.mycompany.library.utilities.LibraryUtil;
 import com.mycompany.library.Database;
+import com.mycompany.library.CustomComponents.CustomTable;
 
 import java.awt.Color;
 import java.sql.*;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
@@ -39,7 +41,7 @@ public class Reservation extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblTable = new javax.swing.JTable();
+        tblTable = new CustomTable();
         txtSearch = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -73,7 +75,7 @@ public class Reservation extends javax.swing.JFrame {
         tblTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         tblTable.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         tblTable.setForeground(new java.awt.Color(255, 255, 255));
-        tblTable.setModel(new javax.swing.table.DefaultTableModel(
+        tblTable.setModel(new DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -111,6 +113,12 @@ public class Reservation extends javax.swing.JFrame {
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            @Override
+            public boolean isCellEditable(int row, int column)
+            {
+                return false;
             }
         });
         tblTable.setGridColor(new java.awt.Color(255, 255, 255));
@@ -348,7 +356,7 @@ public class Reservation extends javax.swing.JFrame {
         if(txtSearch.getText().isBlank()) {
             return;
         }
-        clearTable();
+        tblTable.clearTable();
         String search = "%" + txtSearch.getText() + "%";
         try {
             Connection connection = DriverManager.getConnection(Database.getUrl(), Database.getUsername(), Database.getPassword());
@@ -371,15 +379,7 @@ public class Reservation extends javax.swing.JFrame {
         } catch(SQLException exc) {
             exc.printStackTrace();
         }
-    }
-
-    private void clearTable()
-    {
-        for(int i = 0; i < tblTable.getRowCount(); i++) {
-            for(int j = 0; j < tblTable.getColumnCount(); j++) {
-                tblTable.setValueAt(null, i, j);
-            }
-        }
+        tblTable.updateRowHeight();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -396,7 +396,7 @@ public class Reservation extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblTable;
+    private CustomTable tblTable;
     private javax.swing.JTextField txtBookID;
     private javax.swing.JTextField txtBookTitle;
     private javax.swing.JTextField txtEmail;
