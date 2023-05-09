@@ -379,12 +379,12 @@ public class add_Books extends javax.swing.JFrame {
             Connection con = DriverManager.getConnection(Database.getUrl(), Database.getUsername(), Database.getPassword());
             PreparedStatement stat = con.prepareStatement("INSERT INTO books (book_id, title, author, publisher, publish_date, subject_heading)" + 
             "VALUES (?, ?, ?, ?, ?, ?)");
-            stat.setString(1, txtBookID.getText());
+            stat.setString(1, txtBookID.getRealText());
             stat.setString(2, txtBookTitle.getText());
             stat.setString(3, txtAuthor.getText());
             stat.setString(4, txtPublisher.getText());
-            stat.setString(5, txtPublishDate.getText());
-            stat.setString(6, txtSubjectHeading.getText());
+            stat.setString(5, txtPublishDate.getRealText());
+            stat.setString(6, txtSubjectHeading.getRealText());
             stat.executeUpdate();
         } catch(SQLException e) {
             e.printStackTrace();
