@@ -57,12 +57,12 @@ public class CustomTextField extends JTextField implements FocusListener {
         return placeholder_color;
     }
 
-    public void setPlaceholderText(final String new_text)
+    public void setPlaceholderText(final String placeholder)
     {
         if(text_color != getForeground()) {
             text_color = getForeground();
         }
-        placeholder = new_text;
+        this.placeholder = placeholder;
         if(getText().isBlank()) {
             setText(placeholder);
             setForeground(placeholder_color);
