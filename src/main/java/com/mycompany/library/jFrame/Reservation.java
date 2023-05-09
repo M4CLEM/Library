@@ -6,6 +6,7 @@ package com.mycompany.library.jFrame;
 import com.mycompany.library.utilities.LibraryUtil;
 import com.mycompany.library.Database;
 import com.mycompany.library.CustomComponents.CustomTable;
+import com.mycompany.library.CustomComponents.CustomTextField;
 
 import java.awt.Color;
 import java.sql.*;
@@ -55,9 +56,9 @@ public class Reservation extends javax.swing.JFrame {
         txtFirstName = new javax.swing.JTextField();
         txtMiddleName = new javax.swing.JTextField();
         txtLastName = new javax.swing.JTextField();
-        txtBookID = new javax.swing.JTextField();
+        txtBookID = new CustomTextField();
         txtEmail = new javax.swing.JTextField();
-        txtBookTitle = new javax.swing.JTextField();
+        txtBookTitle = new CustomTextField();
         btnBookReserve = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -216,7 +217,7 @@ public class Reservation extends javax.swing.JFrame {
         txtBookID.setBackground(new java.awt.Color(11, 50, 69));
         txtBookID.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtBookID.setForeground(Color.gray);
-        txtBookID.setText("Select a book");
+        txtBookID.setPlaceholderText("Select a book");
         txtBookID.setEditable(false);
 
         txtEmail.setBackground(new java.awt.Color(11, 50, 69));
@@ -226,8 +227,8 @@ public class Reservation extends javax.swing.JFrame {
         txtBookTitle.setBackground(new java.awt.Color(11, 50, 69));
         txtBookTitle.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtBookTitle.setForeground(Color.gray);
-        txtBookTitle.setText("Select a book");
-        txtBookID.setEditable(false);
+        txtBookTitle.setPlaceholderText("Select a book");
+        txtBookTitle.setEditable(false);
 
         btnBookReserve.setBackground(new java.awt.Color(11, 50, 69));
         btnBookReserve.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -397,8 +398,8 @@ public class Reservation extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private CustomTable tblTable;
-    private javax.swing.JTextField txtBookID;
-    private javax.swing.JTextField txtBookTitle;
+    private CustomTextField txtBookID;
+    private CustomTextField txtBookTitle;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtFirstName;
     private javax.swing.JTextField txtLastName;
