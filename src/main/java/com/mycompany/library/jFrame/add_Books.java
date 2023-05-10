@@ -60,7 +60,7 @@ public class add_Books extends javax.swing.JFrame {
         btnBack = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblBooks = new javax.swing.JTable();
+        tblBooks = new CustomTable();
         txtSearch = new CustomTextField();
         jLabel9 = new javax.swing.JLabel();
         btnEdit = new javax.swing.JButton();
@@ -222,59 +222,60 @@ public class add_Books extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(27, 53, 86));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
 
-        jScrollPane1.setBackground(new java.awt.Color(11, 50, 69));
-        jScrollPane1.setForeground(new java.awt.Color(255, 255, 255));
-
         tblBooks.setBackground(new java.awt.Color(11, 50, 69));
+        tblBooks.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tblBooks.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tblBooks.setForeground(new java.awt.Color(255, 255, 255));
         tblBooks.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Book ID", "Book Title", "Author", "Publisher", "Publish Date", "Subject Heading"
+                "Book ID", "Title", "Author", "Publisher", "Publish Date", "Subject Heading", "Availability"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        tblBooks.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tblBooks.setGridColor(new java.awt.Color(255, 255, 255));
         tblBooks.setShowGrid(true);
+        setBooksToTable();
         jScrollPane1.setViewportView(tblBooks);
 
         txtSearch.setBackground(new java.awt.Color(11, 50, 69));
         txtSearch.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtSearch.setForeground(new java.awt.Color(255, 255, 255));
         txtSearch.setPlaceholderText("Search...");
+        txtSearch.addActionListener(new ComponentAction());
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
@@ -355,7 +356,9 @@ public class add_Books extends javax.swing.JFrame {
                 clearForm();
             } else if(e.getSource() == jButton2) { // Register
                 registerBook();
-            } 
+            } else if(e.getSource() == txtSearch) {
+                setBooksToTable();
+            }
         }
     }
 
@@ -393,7 +396,41 @@ public class add_Books extends javax.swing.JFrame {
         System.out.println("Registration Successful!");
     }
 
-
+    private void setBooksToTable()
+    {
+        tblBooks.clearTable();
+        String query = "";
+        String search = "%" + txtSearch.getRealText() + "%";
+        if(txtSearch.getRealText().isEmpty()) {
+            query = "SELECT * FROM books";
+        } else {
+            query = "SELECT * FROM books WHERE LOWER(title) LIKE ? OR LOWER(author) LIKE ? OR LOWER(publisher) LIKE ? OR LOWER(subject_heading) LIKE ?";
+        }
+        try {
+            Connection con = DriverManager.getConnection(Database.getUrl(), Database.getUsername(), Database.getPassword());
+            PreparedStatement stat = con.prepareStatement(query);
+            if(!txtSearch.getRealText().isEmpty()) {
+                stat.setString(1, search);
+                stat.setString(2, search);
+                stat.setString(3, search);
+                stat.setString(4, search);
+            }
+            ResultSet result = stat.executeQuery();
+            int i = 0;
+            while(result.next()) {
+                for(int j = 0; j < tblBooks.getColumnCount(); j++) {
+                    tblBooks.setValueAt(result.getString(j+1), i, j); 
+                }
+                i++;
+            }
+            result.close();
+            stat.close();
+            con.close();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        tblBooks.updateRowHeight();
+    }
 
     /**
      * @param args the command line arguments
@@ -448,7 +485,7 @@ public class add_Books extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblBooks;
+    private CustomTable tblBooks;
     private javax.swing.JTextField txtAuthor;
     private CustomTextField txtBookID;
     private javax.swing.JTextField txtBookTitle;
