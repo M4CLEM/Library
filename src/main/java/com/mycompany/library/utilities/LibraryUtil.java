@@ -52,6 +52,9 @@ public class LibraryUtil {
 
     public static boolean isValidPublishDateFormat(final String date)
     {
+        if(date.isBlank()) {
+            return true;
+        }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         sdf.setLenient(false);
         try {
