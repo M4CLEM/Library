@@ -43,7 +43,7 @@ public class Reservation extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTable = new CustomTable();
-        txtSearch = new javax.swing.JTextField();
+        txtSearch = new CustomTextField();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -53,11 +53,11 @@ public class Reservation extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        txtFirstName = new javax.swing.JTextField();
-        txtMiddleName = new javax.swing.JTextField();
-        txtLastName = new javax.swing.JTextField();
+        txtFirstName = new CustomTextField();
+        txtMiddleName = new CustomTextField();
+        txtLastName = new CustomTextField();
         txtBookID = new CustomTextField();
-        txtEmail = new javax.swing.JTextField();
+        txtEmail = new CustomTextField();
         txtBookTitle = new CustomTextField();
         btnBookReserve = new javax.swing.JButton();
 
@@ -159,6 +159,7 @@ public class Reservation extends javax.swing.JFrame {
         txtSearch.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(txtSearch);
         txtSearch.setBounds(670, 80, 240, 30);
+        txtSearch.setPlaceholderText("Search...");
         txtSearch.addActionListener(new ComponentAction());
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
@@ -205,14 +206,17 @@ public class Reservation extends javax.swing.JFrame {
         txtFirstName.setBackground(new java.awt.Color(11, 50, 69));
         txtFirstName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtFirstName.setForeground(new java.awt.Color(255, 255, 255));
+        txtFirstName.setPlaceholderText("First Name");
 
         txtMiddleName.setBackground(new java.awt.Color(11, 50, 69));
         txtMiddleName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtMiddleName.setForeground(new java.awt.Color(255, 255, 255));
+        txtMiddleName.setPlaceholderText("Middle Name");
 
         txtLastName.setBackground(new java.awt.Color(11, 50, 69));
         txtLastName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtLastName.setForeground(new java.awt.Color(255, 255, 255));
+        txtLastName.setPlaceholderText("Last Name");
 
         txtBookID.setBackground(new java.awt.Color(11, 50, 69));
         txtBookID.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -223,6 +227,7 @@ public class Reservation extends javax.swing.JFrame {
         txtEmail.setBackground(new java.awt.Color(11, 50, 69));
         txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtEmail.setForeground(new java.awt.Color(255, 255, 255));
+        txtEmail.setPlaceholderText("Email");
 
         txtBookTitle.setBackground(new java.awt.Color(11, 50, 69));
         txtBookTitle.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -400,10 +405,10 @@ public class Reservation extends javax.swing.JFrame {
     private CustomTable tblTable;
     private CustomTextField txtBookID;
     private CustomTextField txtBookTitle;
-    private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtFirstName;
-    private javax.swing.JTextField txtLastName;
-    private javax.swing.JTextField txtMiddleName;
-    private javax.swing.JTextField txtSearch;
+    private CustomTextField txtEmail;
+    private CustomTextField txtFirstName;
+    private CustomTextField txtLastName;
+    private CustomTextField txtMiddleName;
+    private CustomTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }
