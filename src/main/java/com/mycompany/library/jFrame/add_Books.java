@@ -14,6 +14,11 @@ import java.awt.event.ActionEvent;
 import java.sql.*;
 import java.awt.event.FocusListener;
 import java.awt.event.FocusEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseAdapter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -268,7 +273,7 @@ public class add_Books extends javax.swing.JFrame {
         });
         tblBooks.setGridColor(new java.awt.Color(255, 255, 255));
         tblBooks.setShowGrid(true);
-        setBooksToTable();
+        setBooksInTable("");
         jScrollPane1.setViewportView(tblBooks);
 
         txtSearch.setBackground(new java.awt.Color(11, 50, 69));
@@ -290,6 +295,7 @@ public class add_Books extends javax.swing.JFrame {
         btnDelete.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnDelete.setForeground(new java.awt.Color(255, 255, 255));
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new ComponentAction());
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -357,7 +363,9 @@ public class add_Books extends javax.swing.JFrame {
             } else if(e.getSource() == jButton2) { // Register
                 registerBook();
             } else if(e.getSource() == txtSearch) {
-                setBooksToTable();
+                setBooksInTable(txtSearch.getRealText());
+            } else if(e.getSource() == btnDelete) {
+                deleteBook();
             }
         }
     }
@@ -374,34 +382,49 @@ public class add_Books extends javax.swing.JFrame {
 
     private void registerBook()
     {
-        if(!LibraryUtil.isValidBookIdFormat(txtBookID.getText())) {
+        if(txtBookID.getRealText().isBlank()) {
+            JOptionPane.showMessageDialog(null, "Book ID cannot be blank", "Register Failed", JOptionPane.ERROR_MESSAGE);
+        } else if(!LibraryUtil.isValidBookIdFormat(txtBookID.getText())) {
             JOptionPane.showMessageDialog(null, "Invalid Book ID Format", "Register Failed", JOptionPane.ERROR_MESSAGE);
-            return;
+        } else if(txtBookTitle.getText().isBlank()) {
+            JOptionPane.showMessageDialog(null, "Book Title cannot be blank", "Register Failed", JOptionPane.ERROR_MESSAGE);
+        } else if(!LibraryUtil.isValidPublishDateFormat(txtPublishDate.getRealText())) {
+            JOptionPane.showMessageDialog(null, "Invalid Publish Date Format", "Register Failed", JOptionPane.ERROR_MESSAGE);
+        } else {
+            try {
+                Connection con = DriverManager.getConnection(Database.getUrl(), Database.getUsername(), Database.getPassword());
+                PreparedStatement stat = null;
+                if(!LibraryUtil.bookIdExists(txtBookID.getRealText())) {
+                    stat = con.prepareStatement("INSERT INTO books (book_id, title, author, publisher, publish_date, subject_heading)" + 
+                        "VALUES (?, ?, ?, ?, ?, ?)");
+                    stat.setString(1, txtBookID.getRealText());
+                    stat.setString(2, txtBookTitle.getText());
+                    stat.setString(3, txtAuthor.getText());
+                    stat.setString(4, txtPublisher.getText());
+                    stat.setString(5, txtPublishDate.getRealText());
+                    stat.setString(6, txtSubjectHeading.getRealText());
+                } else {
+                    stat = con.prepareStatement("UPDATE books SET availability = availability + 1 WHERE book_id = ?");
+                    stat.setString(1, txtBookID.getRealText());
+                }
+                stat.executeUpdate();
+                stat.close();
+                con.close();
+                System.out.println("Registration Successful!");
+                setBooksInTable(txtSearch.getRealText());
+            } catch(SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Something Went Wrong", "Register Failed", JOptionPane.ERROR_MESSAGE);
+            }
         }
-        try {
-            Connection con = DriverManager.getConnection(Database.getUrl(), Database.getUsername(), Database.getPassword());
-            PreparedStatement stat = con.prepareStatement("INSERT INTO books (book_id, title, author, publisher, publish_date, subject_heading)" + 
-            "VALUES (?, ?, ?, ?, ?, ?)");
-            stat.setString(1, txtBookID.getRealText());
-            stat.setString(2, txtBookTitle.getText());
-            stat.setString(3, txtAuthor.getText());
-            stat.setString(4, txtPublisher.getText());
-            stat.setString(5, txtPublishDate.getRealText());
-            stat.setString(6, txtSubjectHeading.getRealText());
-            stat.executeUpdate();
-        } catch(SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Something Went Wrong", "Register Failed", JOptionPane.ERROR_MESSAGE);
-        }
-        System.out.println("Registration Successful!");
     }
 
-    private void setBooksToTable()
+    private void setBooksInTable(final String search_text)
     {
         tblBooks.clearTable();
         String query = "";
-        String search = "%" + txtSearch.getRealText() + "%";
-        if(txtSearch.getRealText().isEmpty()) {
+        String search = "%" + search_text + "%";
+        if(search_text.isEmpty()) {
             query = "SELECT * FROM books";
         } else {
             query = "SELECT * FROM books WHERE LOWER(title) LIKE ? OR LOWER(author) LIKE ? OR LOWER(publisher) LIKE ? OR LOWER(subject_heading) LIKE ?";
@@ -409,7 +432,7 @@ public class add_Books extends javax.swing.JFrame {
         try {
             Connection con = DriverManager.getConnection(Database.getUrl(), Database.getUsername(), Database.getPassword());
             PreparedStatement stat = con.prepareStatement(query);
-            if(!txtSearch.getRealText().isEmpty()) {
+            if(!search_text.isEmpty()) {
                 stat.setString(1, search);
                 stat.setString(2, search);
                 stat.setString(3, search);
@@ -430,6 +453,30 @@ public class add_Books extends javax.swing.JFrame {
             e.printStackTrace();
         }
         tblBooks.updateRowHeight();
+    }
+
+    private void deleteBook()
+    {
+        int[] rows = tblBooks.getSelectedRows();
+        ArrayList<Integer> selected = new ArrayList<Integer>(Arrays.stream(rows).boxed().toList());
+        try {
+            Connection con = DriverManager.getConnection(Database.getUrl(), Database.getUsername(), Database.getPassword());
+            PreparedStatement stat = con.prepareStatement("DELETE FROM books WHERE book_id = ?");
+            for(int i = 0; i < selected.size(); i++) {
+                String id = "";
+                Object val = tblBooks.getValueAt(selected.get(i), 0);
+                if(val != null) {
+                    id = val.toString();
+                    stat.setString(1, id);
+                    stat.executeUpdate();
+                }
+            }
+            stat.close();
+            con.close();
+            setBooksInTable(txtSearch.getRealText());
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
