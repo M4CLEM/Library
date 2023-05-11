@@ -5,6 +5,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextArea;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import java.awt.Component;
 import java.awt.FontMetrics;
@@ -133,5 +135,10 @@ public class CustomTable extends JTable {
         int textLength = text.length();
         int preferredHeight = fontHeight * ((textLength / 60) + 1);
         return preferredHeight;
+    }
+
+    public ArrayList<Integer> getSelectedRowsArray()
+    {
+        return new ArrayList<Integer>(Arrays.stream(super.getSelectedRows()).boxed().toList());
     }
 }
