@@ -34,6 +34,13 @@ public class add_Books extends javax.swing.JFrame {
      */
     public add_Books() {
         initComponents();
+        jButton1.addActionListener(new ComponentAction());
+        jButton2.addActionListener(new ComponentAction());
+        txtSearch.addActionListener(new ComponentAction());
+        btnDelete.addActionListener(new ComponentAction());
+        btnEdit.addActionListener(new ComponentAction());
+        setBooksInTable("");
+        setVisible(true);
     }
 
     /**
@@ -152,6 +159,7 @@ public class add_Books extends javax.swing.JFrame {
         btnBack.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnBack.setForeground(new java.awt.Color(255, 255, 255));
         btnBack.setText("Back");
+        btnBack.addActionListener(new ComponentAction());
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -255,38 +263,38 @@ public class add_Books extends javax.swing.JFrame {
         tblBooks.setForeground(new java.awt.Color(255, 255, 255));
         tblBooks.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Book ID", "Book Title", "Author", "Publisher", "Publish Date", "Subject Heading"
+                "Book ID", "Book Title", "Author", "Publisher", "Publish Date", "Subject Heading", "Availability"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, int.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -301,14 +309,6 @@ public class add_Books extends javax.swing.JFrame {
         txtSearch.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtSearch.setForeground(new java.awt.Color(255, 255, 255));
         txtSearch.setPlaceholderText("Search...");
-        // txtSearch.addFocusListener(new java.awt.event.FocusAdapter() {
-        //     public void focusGained(java.awt.event.FocusEvent evt) {
-        //         txtSearchFocusGained(evt);
-        //     }
-        //     public void focusLost(java.awt.event.FocusEvent evt) {
-        //         txtSearchFocusLost(evt);
-        //     }
-        // });
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
@@ -389,9 +389,11 @@ public class add_Books extends javax.swing.JFrame {
             } else if(e.getSource() == jButton2) { // Register
                 registerBook();
             } else if(e.getSource() == txtSearch) {
-                setBooksInTable(txtSearch.getRealText());
+                setBooksInTable(txtSearch.getText());
             } else if(e.getSource() == btnDelete) {
                 deleteBook();
+            } else if(e.getSource() == btnEdit) {
+                editBook();
             }
         }
     }
@@ -408,36 +410,51 @@ public class add_Books extends javax.swing.JFrame {
 
     private void registerBook()
     {
-        if(txtBookID.getRealText().isBlank()) {
+        if(txtBookID.getText().isBlank()) {
             JOptionPane.showMessageDialog(null, "Book ID cannot be blank", "Register Failed", JOptionPane.ERROR_MESSAGE);
         } else if(!LibraryUtil.isValidBookIdFormat(txtBookID.getText())) {
             JOptionPane.showMessageDialog(null, "Invalid Book ID Format", "Register Failed", JOptionPane.ERROR_MESSAGE);
         } else if(txtBookTitle.getText().isBlank()) {
             JOptionPane.showMessageDialog(null, "Book Title cannot be blank", "Register Failed", JOptionPane.ERROR_MESSAGE);
-        } else if(!LibraryUtil.isValidPublishDateFormat(txtPublishDate.getRealText())) {
+        } else if(!LibraryUtil.isValidPublishDateFormat(txtPublishDate.getText())) {
             JOptionPane.showMessageDialog(null, "Invalid Publish Date Format", "Register Failed", JOptionPane.ERROR_MESSAGE);
         } else {
+            int stock = 0;
+            try {
+                stock = Integer.parseInt(txtAvailability.getText());
+            } catch(NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Availability needs to be an integer", "Register Failed", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             try {
                 Connection con = DriverManager.getConnection(Database.getUrl(), Database.getUsername(), Database.getPassword());
                 PreparedStatement stat = null;
-                if(!LibraryUtil.bookIdExists(txtBookID.getRealText())) {
-                    stat = con.prepareStatement("INSERT INTO books (book_id, title, author, publisher, publish_date, subject_heading)" + 
-                        "VALUES (?, ?, ?, ?, ?, ?)");
-                    stat.setString(1, txtBookID.getRealText());
+                if(!LibraryUtil.bookIdExists(txtBookID.getText())) {
+                    stat = con.prepareStatement("INSERT INTO books (book_id, title, author, publisher, publish_date, subject_heading, availability)" + 
+                        "VALUES (?, ?, ?, ?, ?, ?, ?)");
+                    stat.setString(1, txtBookID.getText());
                     stat.setString(2, txtBookTitle.getText());
                     stat.setString(3, txtAuthor.getText());
                     stat.setString(4, txtPublisher.getText());
-                    stat.setString(5, txtPublishDate.getRealText());
-                    stat.setString(6, txtSubjectHeading.getRealText());
+                    stat.setString(5, txtPublishDate.getText());
+                    stat.setString(6, txtSubjectHeading.getText());
+                    stat.setInt(7, stock);
                 } else {
-                    stat = con.prepareStatement("UPDATE books SET availability = availability + 1 WHERE book_id = ?");
-                    stat.setString(1, txtBookID.getRealText());
+                    stat = con.prepareStatement("UPDATE books SET title = ?, author = ?, publisher = ?, publish_date = ?, " +
+                    "subject_heading = ?, availability = ? WHERE book_id = ?");
+                    stat.setString(1, txtBookTitle.getText());
+                    stat.setString(2, txtAuthor.getText());
+                    stat.setString(3, txtPublisher.getText());
+                    stat.setString(4, txtPublishDate.getText());
+                    stat.setString(5, txtSubjectHeading.getText());
+                    stat.setInt(6, stock);
+                    stat.setString(7, txtBookID.getText());
                 }
                 stat.executeUpdate();
                 stat.close();
                 con.close();
                 System.out.println("Registration Successful!");
-                setBooksInTable(txtSearch.getRealText());
+                setBooksInTable(txtSearch.getText());
             } catch(SQLException e) {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(null, "Something Went Wrong", "Register Failed", JOptionPane.ERROR_MESSAGE);
@@ -483,8 +500,7 @@ public class add_Books extends javax.swing.JFrame {
 
     private void deleteBook()
     {
-        int[] rows = tblBooks.getSelectedRows();
-        ArrayList<Integer> selected = new ArrayList<Integer>(Arrays.stream(rows).boxed().toList());
+        ArrayList<Integer> selected = tblBooks.getSelectedRowsArray();
         try {
             Connection con = DriverManager.getConnection(Database.getUrl(), Database.getUsername(), Database.getPassword());
             PreparedStatement stat = con.prepareStatement("DELETE FROM books WHERE book_id = ?");
@@ -499,9 +515,35 @@ public class add_Books extends javax.swing.JFrame {
             }
             stat.close();
             con.close();
-            setBooksInTable(txtSearch.getRealText());
+            setBooksInTable(txtSearch.getText());
         } catch(SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void editBook()
+    {
+        int row = tblBooks.getSelectedRow();
+        for(int i = 0; i < tblBooks.getColumnCount(); i++) {
+            String str = "";
+            if(tblBooks.getValueAt(row, i) != null) {
+                str = tblBooks.getValueAt(row, i).toString();
+            }
+            if(i == 0) {
+                txtBookID.setText(str);
+            } else if(i == 1) {
+                txtBookTitle.setText(str);
+            } else if(i == 2) {
+                txtAuthor.setText(str);
+            } else if(i == 3) {
+                txtPublisher.setText(str);
+            } else if(i == 4) {
+                txtPublishDate.setText(str);
+            } else if(i == 5) {
+                txtSubjectHeading.setText(str);
+            } else if(i == 6) {
+                txtAvailability.setText(str);
+            }
         }
     }
 
