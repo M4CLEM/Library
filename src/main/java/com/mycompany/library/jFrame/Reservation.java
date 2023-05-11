@@ -28,6 +28,7 @@ public class Reservation extends javax.swing.JFrame {
      */
     public Reservation() {
         initComponents();
+        setVisible(true);
     }
 
     /**
@@ -67,7 +68,7 @@ public class Reservation extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
         jPanel1.setLayout(null);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Clemence\\Desktop\\LMSImages\\Icons\\logo.jpg")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("resources/images/logo.jpg")); // NOI18N
         jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(5, 5, 0, 0, new java.awt.Color(0, 0, 0)));
         jPanel1.add(jLabel1);
         jLabel1.setBounds(0, 0, 438, 120);
@@ -169,7 +170,7 @@ public class Reservation extends javax.swing.JFrame {
         jLabel2.setBounds(550, 70, 110, 48);
 
         jButton1.setBackground(new java.awt.Color(11, 50, 69));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Back");
         jPanel1.add(jButton1);
@@ -315,7 +316,6 @@ public class Reservation extends javax.swing.JFrame {
 
         pack();
         setLocationRelativeTo(null);
-        setVisible(true);
     }// </editor-fold>//GEN-END:initComponents
 
 
