@@ -18,6 +18,7 @@ public class Administrator extends javax.swing.JFrame {
      */
     public Administrator() {
         initComponents();
+        setVisible(true);
     }
 
     /**
@@ -160,13 +161,8 @@ public class Administrator extends javax.swing.JFrame {
         );
 
         pack();
-        setVisible(true);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnViewRecordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewRecordsActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnViewRecordsActionPerformed
-
+    
     private class ComponentAction implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e)
