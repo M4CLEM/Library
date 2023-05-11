@@ -176,12 +176,12 @@ public class Log_In extends javax.swing.JFrame {
 
     private void loginToAdmin()
     {
-        if(txtAdmin.getRealText().isBlank()) {
+        if(txtAdmin.getText().isBlank()) {
             JOptionPane.showMessageDialog(null, "No username provided", "Login Failed", JOptionPane.ERROR_MESSAGE);
         } else if(txtPassword.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "No password provided", "Login Failed", JOptionPane.ERROR_MESSAGE);
         } else {
-            User user = new User(txtAdmin.getRealText(), txtPassword.getText());
+            User user = new User(txtAdmin.getText(), txtPassword.getText());
             if(user.isAdmin()) {
                 dispose();
                 new Administrator();
