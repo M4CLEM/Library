@@ -34,12 +34,13 @@ public class CustomTextField extends JTextField implements FocusListener {
         addFocusListener(this);
     }
 
-    public String getRealText()
+    @Override
+    public String getText()
     {
         if(isPlaceholderDisplayed()) {
             return "";
         }
-        return getText();
+        return super.getText();
     }
 
     public String getPlaceholderText()
@@ -63,7 +64,7 @@ public class CustomTextField extends JTextField implements FocusListener {
             text_color = getForeground();
         }
         this.placeholder = placeholder;
-        if(getText().isBlank()) {
+        if(super.getText().isBlank()) {
             setText(placeholder);
             setForeground(placeholder_color);
         }
@@ -97,7 +98,7 @@ public class CustomTextField extends JTextField implements FocusListener {
     @Override
     public void focusLost(FocusEvent e)
     {
-        if(getText().isBlank()) {
+        if(super.getText().isBlank()) {
             setText(placeholder);
             setForeground(placeholder_color);
         }
@@ -105,7 +106,7 @@ public class CustomTextField extends JTextField implements FocusListener {
 
     public boolean isPlaceholderDisplayed()
     {
-        return getText().equals(placeholder) && getForeground() == placeholder_color;
+        return super.getText().equals(placeholder) && getForeground() == placeholder_color;
     }
 
     public void clearText()
