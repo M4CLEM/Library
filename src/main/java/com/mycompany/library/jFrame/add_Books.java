@@ -67,7 +67,7 @@ public class add_Books extends javax.swing.JFrame {
         txtAvailability = new CustomTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblBooks = new javax.swing.JTable();
+        tblBooks = new CustomTable();
         txtSearch = new CustomTextField();
         jLabel9 = new javax.swing.JLabel();
         btnEdit = new javax.swing.JButton();
@@ -301,14 +301,14 @@ public class add_Books extends javax.swing.JFrame {
         txtSearch.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtSearch.setForeground(new java.awt.Color(255, 255, 255));
         txtSearch.setPlaceholderText("Search...");
-        txtSearch.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtSearchFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtSearchFocusLost(evt);
-            }
-        });
+        // txtSearch.addFocusListener(new java.awt.event.FocusAdapter() {
+        //     public void focusGained(java.awt.event.FocusEvent evt) {
+        //         txtSearchFocusGained(evt);
+        //     }
+        //     public void focusLost(java.awt.event.FocusEvent evt) {
+        //         txtSearchFocusLost(evt);
+        //     }
+        // });
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
@@ -559,7 +559,7 @@ public class add_Books extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblBooks;
+    private CustomTable tblBooks;
     private CustomTextField txtAuthor;
     private CustomTextField txtAvailability;
     private CustomTextField txtBookID;
