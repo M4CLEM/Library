@@ -6,6 +6,8 @@ package com.mycompany.library.jFrame;
 
 import com.mycompany.library.CustomComponents.CustomTextField;
 import javax.swing.JOptionPane;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 import com.mycompany.library.User;
 
@@ -20,6 +22,7 @@ public class Log_In extends javax.swing.JFrame {
      */
     public Log_In() {
         initComponents();
+        setVisible(true);
     }
 
     /**
@@ -39,8 +42,8 @@ public class Log_In extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtAdmin = new CustomTextField();
         txtPassword = new javax.swing.JPasswordField();
+        btnGuest = new javax.swing.JButton();
         btnLogin = new javax.swing.JButton();
-        btnLogin1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -48,7 +51,7 @@ public class Log_In extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
         jPanel1.setLayout(null);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Clemence\\Desktop\\LMSImages\\Icons\\background.jpg")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("resources/images/background.jpg")); // NOI18N
         jPanel1.add(jLabel1);
         jLabel1.setBounds(0, 0, 480, 450);
 
@@ -56,7 +59,7 @@ public class Log_In extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
         jPanel2.setLayout(null);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Clemence\\Desktop\\LMSImages\\Icons\\logo.jpg")); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon("resources/images/logo.jpg")); // NOI18N
         jLabel2.setBorder(javax.swing.BorderFactory.createMatteBorder(5, 5, 0, 5, new java.awt.Color(0, 0, 0)));
         jPanel2.add(jLabel2);
         jLabel2.setBounds(0, 0, 430, 100);
@@ -76,58 +79,50 @@ public class Log_In extends javax.swing.JFrame {
         txtAdmin.setBackground(new java.awt.Color(11, 50, 69));
         txtAdmin.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         txtAdmin.setForeground(new java.awt.Color(255, 255, 255));
-        txtAdmin.setPlaceholderText("Admin");
-        txtAdmin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAdminActionPerformed(evt);
-            }
-        });
+        txtAdmin.setPlaceholderText("Admin...");
+        // txtAdmin.addActionListener(new java.awt.event.ActionListener() {
+        //     public void actionPerformed(java.awt.event.ActionEvent evt) {
+        //         txtAdminActionPerformed(evt);
+        //     }
+        // });
         jPanel2.add(txtAdmin);
         txtAdmin.setBounds(130, 130, 260, 38);
 
         txtPassword.setBackground(new java.awt.Color(11, 50, 69));
         txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         txtPassword.setForeground(new java.awt.Color(255, 255, 255));
-        txtPassword.setText("Password");
-        txtPassword.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtPasswordFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtPasswordFocusLost(evt);
-            }
-        });
-        txtPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPasswordActionPerformed(evt);
-            }
-        });
+        // txtPassword.setText("Password");
+        // txtPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+        //     public void focusGained(java.awt.event.FocusEvent evt) {
+        //         txtPasswordFocusGained(evt);
+        //     }
+        //     public void focusLost(java.awt.event.FocusEvent evt) {
+        //         txtPasswordFocusLost(evt);
+        //     }
+        // });
+        // txtPassword.addActionListener(new java.awt.event.ActionListener() {
+        //     public void actionPerformed(java.awt.event.ActionEvent evt) {
+        //         txtPasswordActionPerformed(evt);
+        //     }
+        // });
         jPanel2.add(txtPassword);
         txtPassword.setBounds(130, 190, 260, 38);
+
+        btnGuest.setBackground(new java.awt.Color(11, 50, 69));
+        btnGuest.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnGuest.setForeground(new java.awt.Color(255, 255, 255));
+        btnGuest.setText("Guest");
+        btnGuest.addActionListener(new ComponentAction());
+        jPanel2.add(btnGuest);
+        btnGuest.setBounds(130, 270, 100, 39);
 
         btnLogin.setBackground(new java.awt.Color(11, 50, 69));
         btnLogin.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnLogin.setForeground(new java.awt.Color(255, 255, 255));
-        btnLogin.setText("Guest");
-        btnLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoginActionPerformed(evt);
-            }
-        });
+        btnLogin.setText("Login");
+        btnLogin.addActionListener(new ComponentAction());
         jPanel2.add(btnLogin);
-        btnLogin.setBounds(130, 270, 100, 39);
-
-        btnLogin1.setBackground(new java.awt.Color(11, 50, 69));
-        btnLogin1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        btnLogin1.setForeground(new java.awt.Color(255, 255, 255));
-        btnLogin1.setText("Login");
-        btnLogin1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogin1ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnLogin1);
-        btnLogin1.setBounds(290, 270, 100, 39);
+        btnLogin.setBounds(290, 270, 100, 39);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -148,18 +143,6 @@ public class Log_In extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAdminActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtAdminActionPerformed
-
-    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPasswordActionPerformed
-
-    private void btnLogin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogin1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnLogin1ActionPerformed
-
     private void txtPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPasswordFocusGained
         // TODO add your handling code here:
         if(txtPassword.getText().equals("Password")){
@@ -176,6 +159,36 @@ public class Log_In extends javax.swing.JFrame {
 
     private User btnLoginActionPerformed(java.awt.event.ActionEvent evt) {
         return new User(txtAdmin.getText(), txtPassword.getText());
+    }
+
+    private class ComponentAction implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            if(e.getSource() == btnGuest) {
+                dispose();
+                new Reservation();
+            } else if(e.getSource() == btnLogin) {
+                loginToAdmin();
+            }
+        }
+    }
+
+    private void loginToAdmin()
+    {
+        if(txtAdmin.getRealText().isBlank()) {
+            JOptionPane.showMessageDialog(null, "No username provided", "Login Failed", JOptionPane.ERROR_MESSAGE);
+        } else if(txtPassword.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No password provided", "Login Failed", JOptionPane.ERROR_MESSAGE);
+        } else {
+            User user = new User(txtAdmin.getRealText(), txtPassword.getText());
+            if(user.isAdmin()) {
+                dispose();
+                new Administrator();
+            } else {
+                JOptionPane.showMessageDialog(null, "User is not an administrator", "Login Failed", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
     /**
@@ -215,8 +228,8 @@ public class Log_In extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGuest;
     private javax.swing.JButton btnLogin;
-    private javax.swing.JButton btnLogin1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
