@@ -37,7 +37,7 @@ public class CustomTable extends JTable {
         super.setModel(t);
     }
 
-    public class MultiLineCellRenderer extends JTextArea implements TableCellRenderer {
+    public static class MultiLineCellRenderer extends JTextArea implements TableCellRenderer {
 
         public MultiLineCellRenderer()
         {
