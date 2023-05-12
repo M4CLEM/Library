@@ -6,7 +6,6 @@ package com.mycompany.library.jFrame;
 import com.mycompany.library.Database;
 import com.mycompany.library.CustomComponents.CustomTable;
 import com.mycompany.library.CustomComponents.CustomTextField;
-import com.mycompany.library.CustomComponents.TextFilters;
 import com.mycompany.library.utilities.LibraryUtil;
 
 import java.awt.event.ActionListener;
@@ -171,7 +170,6 @@ public class add_Books extends javax.swing.JFrame {
         txtAvailability.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtAvailability.setForeground(new java.awt.Color(255, 255, 255));
         txtAvailability.setPlaceholderText("Availability");
-        txtAvailability.setFilter(new TextFilters.IntegerOnly(txtAvailability.getPlaceholderText()));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -424,14 +422,10 @@ public class add_Books extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Book Title cannot be blank", "Register Failed", JOptionPane.ERROR_MESSAGE);
         } else if(!LibraryUtil.isValidPublishDateFormat(txtPublishDate.getText())) {
             JOptionPane.showMessageDialog(null, "Invalid Publish Date Format", "Register Failed", JOptionPane.ERROR_MESSAGE);
+        } else if(txtAvailability.contains("[^0-9]")) {
+            JOptionPane.showMessageDialog(null, "Availability can only contain integers", "Register Failed", JOptionPane.ERROR_MESSAGE);
         } else {
-            int stock = 0;
-            try {
-                stock = Integer.parseInt(txtAvailability.getText());
-            } catch(NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Availability needs to be an integer", "Register Failed", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+            int stock = Integer.parseInt(txtAvailability.getText());
             try {
                 Connection con = DriverManager.getConnection(Database.getUrl(), Database.getUsername(), Database.getPassword());
                 PreparedStatement stat = null;
