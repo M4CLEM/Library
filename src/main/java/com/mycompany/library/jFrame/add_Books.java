@@ -39,6 +39,7 @@ public class add_Books extends javax.swing.JFrame {
         txtSearch.addActionListener(new ComponentAction());
         btnDelete.addActionListener(new ComponentAction());
         btnEdit.addActionListener(new ComponentAction());
+        btnBack.addActionListener(new ComponentAction());
         setBooksInTable("");
         setVisible(true);
     }
@@ -394,6 +395,9 @@ public class add_Books extends javax.swing.JFrame {
                 deleteBook();
             } else if(e.getSource() == btnEdit) {
                 editBook();
+            } else if(e.getSource() == btnBack) {
+                dispose();
+                new Administrator();
             }
         }
     }
