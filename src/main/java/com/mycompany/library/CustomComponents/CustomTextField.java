@@ -2,12 +2,12 @@ package com.mycompany.library.CustomComponents;
 
 import javax.swing.JTextField;
 import javax.swing.text.DocumentFilter;
-// import javax.swing.text.PlainDocument;
 import javax.swing.text.AbstractDocument;
-// import javax.swing.text.AttributeSet;
 import java.awt.event.FocusListener;
 import java.awt.Color;
 import java.awt.event.FocusEvent;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CustomTextField extends JTextField implements FocusListener {
     private String placeholder = "";
@@ -126,38 +126,22 @@ public class CustomTextField extends JTextField implements FocusListener {
         setForeground(placeholder_color);
     }
 
-    // public static class NumberOnlyFilter extends DocumentFilter {
-    //     @Override
-    //     public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
-    //         System.out.println("Text: " + string);
-    //         if (string == null) {
-    //             return;
-    //         }
-    //         try {
-    //             Integer.parseInt(string);
-    //             super.insertString(fb, offset, string, attr);
-    //         } catch (NumberFormatException e) {
-    //             // not a number, ignore this insert
-    //         }
-    //     }
-
-    //     @Override
-    //     public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
-    //         System.out.println("Text: " + text);
-    //         if (text == null) {
-    //             return;
-    //         }
-    //         try {
-    //             Integer.parseInt(text);
-    //             super.replace(fb, offset, length, text, attrs);
-    //         } catch (NumberFormatException e) {
-    //             // not a number, ignore this replace
-    //         }
-    //     }
-    // }
-
     public void setFilter(DocumentFilter filter)
     {
         ((AbstractDocument)this.getDocument()).setDocumentFilter(filter);
+    }
+
+    public boolean matches(final String pattern)
+    {
+        Pattern p = Pattern.compile(pattern);
+        Matcher match = p.matcher(getText());
+        return match.matches();
+    }
+
+    public boolean contains(final String pattern)
+    {
+        Pattern p = Pattern.compile(pattern);
+        Matcher match = p.matcher(getText());
+        return match.find();
     }
 }
