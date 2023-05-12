@@ -6,6 +6,16 @@ package com.mycompany.library.jFrame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.ConnectException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.mycompany.library.Database;
+import com.mycompany.library.CustomComponents.CustomTable;
+import com.mysql.cj.x.protobuf.MysqlxPrepare.Prepare;
 
 /**
  *
@@ -18,6 +28,8 @@ public class Records extends javax.swing.JFrame {
      */
     public Records() {
         initComponents();
+        btnBack.addActionListener(new ComponentAction());
+        setTableValues("");
         setVisible(true);
     }
 
@@ -37,7 +49,7 @@ public class Records extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblRecords = new javax.swing.JTable();
+        tblRecords = new CustomTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,34 +79,34 @@ public class Records extends javax.swing.JFrame {
         tblRecords.setForeground(new java.awt.Color(255, 255, 255));
         tblRecords.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Name", "College", "Department", "Book Name", "Book Id", "Borrowed Date", "Return Date"
+                "Reservation ID", "User ID", "Book ID", "Reservation Start", "Reservation End"
             }
         ) {
             Class[] types = new Class [] {
@@ -174,6 +186,46 @@ public class Records extends javax.swing.JFrame {
         }
     }
 
+    private void setTableValues(String search)
+    {
+        tblRecords.clearTable();
+        boolean empty_search = search.isEmpty();
+        String query = "";
+        if(empty_search) {
+            query = "SELECT * FROM reservations";
+        } else {
+            query = "SELECT * FROM reservations WHERE reservation_id = ? OR user_id = ? " + 
+            "OR book_id = ?";
+        }
+        try {
+            Connection con = DriverManager.getConnection(Database.getUrl(), Database.getUsername(), Database.getPassword());
+            PreparedStatement stat = con.prepareStatement(query);
+            ResultSet result = null;
+            if(!empty_search) {
+                int id = Integer.parseInt(search);
+                stat.setInt(1, id);
+                stat.setInt(2, id);
+                stat.setString(3, search);
+                result = stat.executeQuery();
+            } else {
+                result = stat.executeQuery();
+            }
+            int i = 0;
+            while(result.next()) {
+                for(int j = 0; j < tblRecords.getColumnCount(); j++) {
+                    tblRecords.setValueAt(result.getString(j+1), i, j); 
+                }
+                i++;
+            }
+            result.close();
+            stat.close();
+            con.close();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        tblRecords.updateRowHeight();
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -217,6 +269,6 @@ public class Records extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable tblRecords;
+    private CustomTable tblRecords;
     // End of variables declaration//GEN-END:variables
 }
