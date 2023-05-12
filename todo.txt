@@ -1,10 +1,9 @@
 To-Do List:
-- Rename 'Tracker.java' to 'Returns.java'
-- Change 'add_Books.java' UI similar to 'Reservation.java'
-- Auto wrap text inside table cell when text is too long
 
-Records Table
-Reservation ID, User ID, Book ID, Reservation Start, Reservation End 
+Records
+- Add search bar
 
-Return Table
-Return ID, User ID, Book ID, Return Date
+Records
+- When returning, input user id.
+- Delete the entry of that user from reservation table
+
