@@ -347,13 +347,36 @@ public class Reservation extends javax.swing.JFrame {
         } else if(!LibraryUtil.isValidBookIdFormat(txtBookID.getText())) {
             JOptionPane.showMessageDialog(null, "Invalid Book ID", "Reservation Failed", JOptionPane.ERROR_MESSAGE);
         } else {
-            System.out.println("Reserved");
-            // try {
-            //     Connection con = DriverManager.getConnection(Database.getUrl(), Database.getUsername(), Database.getPassword());
-            //     PreparedStatement stat = con.prepareStatement();
-            // } catch(SQLException e) {
-            //     e.printStackTrace();
-            // }
+            String query = "";
+            boolean user_exist = LibraryUtil.userExists(txtEmail.getText());
+            if(user_exist) {
+                query = "INSERT INTO reservations (user_id, book_id, reservation_start, reservation_end) VALUES (?, ?, ?, ?)";
+            } else {
+                query = "INSERT INTO users (first_name, middle_name, last_name, email) VALUES (?, ?, ?, ?)";
+            }
+            try {
+                Connection con = DriverManager.getConnection(Database.getUrl(), Database.getUsername(), Database.getPassword());
+                PreparedStatement stat = con.prepareStatement(query);
+                if(!user_exist) {
+                    stat.setString(1, txtFirstName.getText());
+                    stat.setString(2, txtMiddleName.getText());
+                    stat.setString(3, txtLastName.getText());
+                    stat.setString(4, txtEmail.getText());
+                    stat.executeUpdate();
+                    query = "INSERT INTO reservations (user_id, book_id, reservation_start, reservation_end) VALUES (?, ?, ?, ?)";
+                    stat = con.prepareStatement(query);
+                }
+                String date = LibraryUtil.getDatetimeNow();
+                stat.setInt(1, LibraryUtil.getUserId(txtEmail.getText()));
+                stat.setString(2, txtBookID.getText());
+                stat.setTimestamp(3, java.sql.Timestamp.valueOf(date));
+                stat.setTimestamp(4, java.sql.Timestamp.valueOf(LibraryUtil.getAddedDatetime(date, 7)));
+                stat.executeUpdate();
+                stat.close();
+                con.close();
+            } catch(SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
