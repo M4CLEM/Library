@@ -181,7 +181,7 @@ public class Log_In extends javax.swing.JFrame {
         } else if(txtPassword.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "No password provided", "Login Failed", JOptionPane.ERROR_MESSAGE);
         } else {
-            User user = new User(txtAdmin.getText(), txtPassword.getText());
+            User user = new User(txtAdmin.getText().trim(), txtPassword.getText());
             if(user.isAdmin()) {
                 dispose();
                 new Administrator();
