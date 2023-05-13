@@ -4,10 +4,20 @@
  */
 package com.mycompany.library.jFrame;
 
+import com.mycompany.library.Database;
 import com.mycompany.library.CustomComponents.CustomTable;
 import com.mycompany.library.CustomComponents.CustomTextField;
+import com.mycompany.library.utilities.LibraryUtil;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.ConnectException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,6 +30,8 @@ public class Returns extends javax.swing.JFrame {
      */
     public Returns() {
         initComponents();
+        btnBack.addActionListener(new ComponentAction());
+        btnRegister.addActionListener(new ComponentAction());
         setVisible(true);
     }
 
@@ -214,8 +226,43 @@ public class Returns extends javax.swing.JFrame {
             if(e.getSource() == btnBack) { // back
                 dispose();
                 new Administrator();
-            } 
+            } else if(e.getSource() == btnRegister) {
+                registerUser();
+            }
         }
+    }
+
+    private void registerUser()
+    {
+        // boolean is_email = false;
+        // boolean empty_date = txtReturnDate.getText().isBlank();
+        // if(txtUser.getText().isBlank()) {
+        //     JOptionPane.showMessageDialog(null, "User cannot be blank", "Register Failed", JOptionPane.ERROR_MESSAGE);
+        //     return;
+        // }
+        // if(txtUser.getText().contains("@")) {
+        //     is_email = true;
+        // }
+        // int user_id = 0;
+        // if(is_email) {
+        //     user_id = LibraryUtil.getUserId(txtUser.getText());
+        // } else if(!is_email && txtUser.matches("^[0-9]$")) {
+        //     user_id = Integer.parseInt(txtUser.getText());
+        // }
+        // String query = "";
+        // if(empty_date) {
+        //     query = "INSERT INTO returns (user_id, book_id) VALUES (?, (SELECT book_id FROM reservations WHERE ))";
+        // } else {
+        //     query = "INSERT INTO returns (user_id, book_id, return_date) VALUES (?, ?, ?)";
+        // }
+        // try {
+        //     Connection con = DriverManager.getConnection(Database.getUrl(), Database.getUsername(), Database.getPassword());
+        //     PreparedStatement stat = con.prepareStatement(query);
+        //     stat.setInt(1, user_id);
+
+        // } catch(SQLException e) {
+        //     e.printStackTrace();
+        // }
     }
 
     /**
