@@ -6,7 +6,6 @@ package com.mycompany.library.jFrame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.ConnectException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,7 +14,6 @@ import java.sql.SQLException;
 
 import com.mycompany.library.Database;
 import com.mycompany.library.CustomComponents.CustomTable;
-import com.mysql.cj.x.protobuf.MysqlxPrepare.Prepare;
 import com.mycompany.library.CustomComponents.CustomTextField;
 
 /**
@@ -30,6 +28,7 @@ public class Records extends javax.swing.JFrame {
     public Records() {
         initComponents();
         btnBack.addActionListener(new ComponentAction());
+        txtSearch.addActionListener(new ComponentAction());
         setTableValues("");
         setVisible(true);
     }
@@ -80,34 +79,34 @@ public class Records extends javax.swing.JFrame {
         tblRecords.setForeground(new java.awt.Color(255, 255, 255));
         tblRecords.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Name", "College", "Department", "Book Name", "Book Id", "Borrowed Date", "Return Date"
+                "Reservation ID", "User ID", "Book ID", "Reservation Start", "Reservation End"
             }
         ) {
             Class[] types = new Class [] {
@@ -116,6 +115,11 @@ public class Records extends javax.swing.JFrame {
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int row, int column)
+            {
+                return false;
             }
         });
         tblRecords.setGridColor(new java.awt.Color(255, 255, 255));
@@ -185,6 +189,8 @@ public class Records extends javax.swing.JFrame {
             if(e.getSource() == btnBack) {
                 dispose();
                 new Administrator();
+            } else if(e.getSource() == txtSearch) {
+                setTableValues(txtSearch.getText());
             }
         }
     }
