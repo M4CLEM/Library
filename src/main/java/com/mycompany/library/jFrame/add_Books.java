@@ -9,16 +9,9 @@ import com.mycompany.library.CustomComponents.CustomTextField;
 import com.mycompany.library.utilities.LibraryUtil;
 
 import java.awt.event.ActionListener;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.sql.*;
-import java.awt.event.FocusListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -408,11 +401,12 @@ public class add_Books extends javax.swing.JFrame {
     private void clearForm()
     {
         txtBookID.clearText();
-        txtBookTitle.setText("");
-        txtAuthor.setText("");
-        txtPublisher.setText("");
+        txtBookTitle.clearText();
+        txtAuthor.clearText();
+        txtPublisher.clearText();
         txtPublishDate.clearText();
         txtSubjectHeading.clearText();
+        txtAvailability.clearText();
     }
 
     private void registerBook()
