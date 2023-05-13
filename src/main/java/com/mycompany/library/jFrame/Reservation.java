@@ -28,6 +28,11 @@ public class Reservation extends javax.swing.JFrame {
      */
     public Reservation() {
         initComponents();
+        tblTable.getTableHeader().setReorderingAllowed(false);
+        tblTable.getTableHeader().setResizingAllowed(false);
+        tblTable.getColumnModel().getColumn(0).setPreferredWidth(85);
+        tblTable.getColumnModel().getColumn(4).setPreferredWidth(50);
+        tblTable.getColumnModel().getColumn(6).setMaxWidth(100);
         setVisible(true);
     }
 
