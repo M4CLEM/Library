@@ -34,6 +34,9 @@ public class add_Books extends javax.swing.JFrame {
      */
     public add_Books() {
         initComponents();
+        tblBooks.getColumnModel().getColumn(0).setPreferredWidth(85);
+        tblBooks.getColumnModel().getColumn(5).setPreferredWidth(80);
+        tblBooks.getColumnModel().getColumn(6).setPreferredWidth(50);
         jButton1.addActionListener(new ComponentAction());
         jButton2.addActionListener(new ComponentAction());
         txtSearch.addActionListener(new ComponentAction());
