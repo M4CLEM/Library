@@ -143,24 +143,6 @@ public class Log_In extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPasswordFocusGained
-        // TODO add your handling code here:
-        if(txtPassword.getText().equals("Password")){
-            txtPassword.setText("");
-        }
-    }//GEN-LAST:event_txtPasswordFocusGained
-
-    private void txtPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPasswordFocusLost
-        // TODO add your handling code here:
-        if(txtPassword.getText().equals("")){
-            txtPassword.setText("Password");
-        }
-    }//GEN-LAST:event_txtPasswordFocusLost
-
-    private User btnLoginActionPerformed(java.awt.event.ActionEvent evt) {
-        return new User(txtAdmin.getText(), txtPassword.getText());
-    }
-
     private class ComponentAction implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e)
