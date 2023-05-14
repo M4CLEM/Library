@@ -11,10 +11,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.mycompany.library.Database;
 import com.mycompany.library.CustomComponents.CustomTable;
 import com.mycompany.library.CustomComponents.CustomTextField;
+import com.mycompany.library.utilities.LibraryUtil;
+import com.mysql.cj.jdbc.Driver;
 
 /**
  *
@@ -28,6 +31,7 @@ public class Records extends javax.swing.JFrame {
     public Records() {
         initComponents();
         btnBack.addActionListener(new ComponentAction());
+        btnReturn.addActionListener(new ComponentAction());
         txtSearch.addActionListener(new ComponentAction());
         setTableValues("");
         setVisible(true);
@@ -45,7 +49,7 @@ public class Records extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btnBack = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
+        btnReturn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblRecords = new CustomTable();
@@ -65,10 +69,10 @@ public class Records extends javax.swing.JFrame {
         btnEdit.setForeground(new java.awt.Color(255, 255, 255));
         btnEdit.setText("Edit");
 
-        btnDelete.setBackground(new java.awt.Color(11, 50, 69));
-        btnDelete.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        btnDelete.setForeground(new java.awt.Color(255, 255, 255));
-        btnDelete.setText("Delete");
+        btnReturn.setBackground(new java.awt.Color(11, 50, 69));
+        btnReturn.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnReturn.setForeground(new java.awt.Color(255, 255, 255));
+        btnReturn.setText("Returned");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -110,7 +114,7 @@ public class Records extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, int.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -145,7 +149,7 @@ public class Records extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(btnBack)
                             .addGap(60, 60, 60)
-                            .addComponent(btnDelete)
+                            .addComponent(btnReturn)
                             .addGap(18, 18, 18)
                             .addComponent(btnEdit))))
                 .addContainerGap(16, Short.MAX_VALUE))
@@ -162,7 +166,7 @@ public class Records extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBack)
-                    .addComponent(btnDelete)
+                    .addComponent(btnReturn)
                     .addComponent(btnEdit))
                 .addGap(16, 16, 16))
         );
@@ -191,6 +195,8 @@ public class Records extends javax.swing.JFrame {
                 new Administrator();
             } else if(e.getSource() == txtSearch) {
                 setTableValues(txtSearch.getText());
+            } else if(e.getSource() == btnReturn) {
+                addToReturns();
             }
         }
     }
@@ -235,6 +241,41 @@ public class Records extends javax.swing.JFrame {
         tblRecords.updateRowHeight();
     }
 
+    private void addToReturns()
+    {
+        ArrayList<Integer> selected = tblRecords.getSelectedRowsArray();
+        if(!selected.isEmpty()) {
+            try {
+                Connection con = DriverManager.getConnection(Database.getUrl(), Database.getUsername(), Database.getPassword());
+                PreparedStatement stat = con.prepareStatement("INSERT INTO returns (user_id, book_id, reservation_end, return_date) " +
+                "VALUES (?, ?, ?, ?)");
+                for(int i = 0; i < selected.size(); i++) {
+                    int row = selected.get(i);
+                    stat.setInt(1, Integer.parseInt(tblRecords.getValueAt(row, 1).toString()));
+                    stat.setString(2, tblRecords.getValueAt(row, 2).toString());
+                    stat.setTimestamp(3, java.sql.Timestamp.valueOf(tblRecords.getValueAt(row, 4).toString()));
+                    stat.setTimestamp(4, java.sql.Timestamp.valueOf(LibraryUtil.getDatetimeNow()));
+                    int user_id = Integer.parseInt(tblRecords.getValueAt(row, 1).toString());
+                    String book_id = tblRecords.getValueAt(row, 2).toString();
+                    String reservation_end = tblRecords.getValueAt(row, 4).toString();
+                    String return_date = LibraryUtil.getDatetimeNow();
+                    stat.executeUpdate();
+                }
+                stat = con.prepareStatement("DELETE FROM reservations WHERE reservation_id = ?");
+                for(int i = 0; i < selected.size(); i++) {
+                    int row = selected.get(i);
+                    stat.setInt(1, Integer.parseInt(tblRecords.getValueAt(row, 0).toString()));
+                    stat.executeUpdate();
+                }
+                stat.close();
+                con.close();
+                setTableValues("");
+            } catch(SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -272,7 +313,7 @@ public class Records extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnReturn;
     private javax.swing.JButton btnEdit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
