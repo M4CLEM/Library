@@ -12,10 +12,7 @@ import com.mycompany.library.utilities.LibraryUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.ConnectException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 import javax.swing.JOptionPane;
 
@@ -32,6 +29,7 @@ public class Returns extends javax.swing.JFrame {
         initComponents();
         btnBack.addActionListener(new ComponentAction());
         btnRegister.addActionListener(new ComponentAction());
+        setTableValues("");
         setVisible(true);
     }
 
@@ -46,7 +44,7 @@ public class Returns extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new CustomTable();
+        tblReturns = new CustomTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btnBack = new javax.swing.JButton();
@@ -61,9 +59,9 @@ public class Returns extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(27, 53, 86));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
 
-        jTable1.setBackground(new java.awt.Color(11, 50, 69));
-        jTable1.setForeground(new java.awt.Color(255, 255, 255));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblReturns.setBackground(new java.awt.Color(11, 50, 69));
+        tblReturns.setForeground(new java.awt.Color(255, 255, 255));
+        tblReturns.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -104,8 +102,8 @@ public class Returns extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jTable1.setShowGrid(true);
-        jScrollPane1.setViewportView(jTable1);
+        tblReturns.setShowGrid(true);
+        jScrollPane1.setViewportView(tblReturns);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -265,6 +263,46 @@ public class Returns extends javax.swing.JFrame {
         // }
     }
 
+    private void setTableValues(final String search)
+    {
+        tblReturns.clearTable();
+        boolean empty_search = search.isEmpty();
+        String query = "";
+        if(empty_search) {
+            query = "SELECT * FROM returns";
+        } else {
+            query = "SELECT * FROM returns WHERE return_id = ? OR user_id = ? " + 
+            "OR book_id = ?";
+        }
+        try {
+            Connection con = DriverManager.getConnection(Database.getUrl(), Database.getUsername(), Database.getPassword());
+            PreparedStatement stat = con.prepareStatement(query);
+            ResultSet result = null;
+            if(!empty_search) {
+                int id = Integer.parseInt(search);
+                stat.setInt(1, id);
+                stat.setInt(2, id);
+                stat.setString(3, search);
+                result = stat.executeQuery();
+            } else {
+                result = stat.executeQuery();
+            }
+            int i = 0;
+            while(result.next()) {
+                for(int j = 0; j < tblReturns.getColumnCount(); j++) {
+                    tblReturns.setValueAt(result.getString(j+1), i, j); 
+                }
+                i++;
+            }
+            result.close();
+            stat.close();
+            con.close();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        tblReturns.updateRowHeight();
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -310,7 +348,7 @@ public class Returns extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private CustomTable jTable1;
+    private CustomTable tblReturns;
     private CustomTextField txtReturnDate;
     private CustomTextField txtUser;
     // End of variables declaration//GEN-END:variables
