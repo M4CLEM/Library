@@ -33,6 +33,7 @@ public class Records extends javax.swing.JFrame {
         btnBack.addActionListener(new ComponentAction());
         btnReturn.addActionListener(new ComponentAction());
         txtSearch.addActionListener(new ComponentAction());
+        btnEdit.setVisible(false);
         setTableValues("");
         setVisible(true);
     }

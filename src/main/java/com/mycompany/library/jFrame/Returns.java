@@ -269,7 +269,7 @@ public class Returns extends javax.swing.JFrame {
         boolean empty_search = search.isEmpty();
         String query = "";
         if(empty_search) {
-            query = "SELECT * FROM returns";
+            query = "SELECT * FROM returns ORDER BY return_id DESC";
         } else {
             query = "SELECT * FROM returns WHERE return_id = ? OR user_id = ? " + 
             "OR book_id = ?";
