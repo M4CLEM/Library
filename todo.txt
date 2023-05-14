@@ -1,9 +1,16 @@
 To-Do List:
 
-Records
-- Add search bar
+Returns.java 
+- Paremove nalang left panel
+- Lagyan Search textfield
+- Palagyan JComboBox malapit sa search bar para sort search
+- Palagyan nadin delete button
 
-Records
-- When returning, input user id.
-- Delete the entry of that user from reservation table
+Records.java
+- Lagyan JComboBox katabi ng search bar
 
+add_Books.java
+- Lagyan JComboBox katabi ng search bar
+
+Administrator.java
+- Paayos nalang placement ng log out button
