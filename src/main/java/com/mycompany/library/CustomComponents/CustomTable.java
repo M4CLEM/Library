@@ -147,28 +147,10 @@ public class CustomTable extends JTable {
         return new ArrayList<Integer>(Arrays.stream(super.getSelectedRows()).boxed().toList());
     }
 
-    class NullSafeComparator implements Comparator<String> {
-        public int compare(String str1, String str2) {
-            if (str1 == null && str2 == null) {
-                return 0;
-            } else if (str1 == null) {
-                return 1; // Place null at the end
-            } else if (str2 == null) {
-                return -1; // Place null at the end
-            } else {
-                return str1.compareTo(str2);
-            }
-        }
-    }
-    
-
     public void sortTable(final int column, final SortOrder order)
     {   
         TableRowSorter<TableModel> sorter = new TableRowSorter<>(getModel());
         setRowSorter(sorter);
-        for (int i = 0; i < getColumnCount(); i++) {
-            sorter.setComparator(i, new NullSafeComparator());
-        }
         ArrayList<RowSorter.SortKey> sort_keys = new ArrayList<>();
         sort_keys.add(new RowSorter.SortKey(column, order));
         sorter.setSortKeys(sort_keys);

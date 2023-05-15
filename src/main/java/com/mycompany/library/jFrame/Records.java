@@ -226,14 +226,7 @@ public class Records extends javax.swing.JFrame {
             } else if(e.getSource() == btnReturn) {
                 addToReturns();
             } else if(e.getSource() == cmbSortOrder || e.getSource() == cmbSortBy) {
-                String val = String.valueOf(cmbSortOrder.getSelectedItem());
-                SortOrder order = SortOrder.UNSORTED;
-                if(val.equalsIgnoreCase("ascending")) {
-                    order = SortOrder.ASCENDING;
-                } else if(val.equalsIgnoreCase("descending")) {
-                    order = SortOrder.DESCENDING;
-                }
-                tblRecords.sortTable(cmbSortBy.getSelectedIndex(), order);
+                //setTableValues(txtSearch.getText(), , null);
             }
         }
     }
