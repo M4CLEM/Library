@@ -4,11 +4,11 @@
  */
 package com.mycompany.library.jFrame;
 import com.mycompany.library.Database;
-import com.mycompany.library.CustomComponents.CustomTable;
-import com.mycompany.library.CustomComponents.CustomTextField;
+import com.mycompany.library.CustomComponents.*;
 import com.mycompany.library.utilities.LibraryUtil;
 
 import java.awt.event.ActionListener;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.sql.*;
 import java.util.ArrayList;
@@ -323,11 +323,13 @@ public class add_Books extends javax.swing.JFrame {
         cmbSortBy.setBackground(new java.awt.Color(11, 50, 69));
         cmbSortBy.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         cmbSortBy.setForeground(new java.awt.Color(255, 255, 255));
+        cmbSortBy.setUI(new ColorArrowUI(new java.awt.Color(11, 50, 69), Color.white, Color.white));
         cmbSortBy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Book ID", "Title", "Author", "Publisher", "Publish Date", "Subject Heading", "Availability" }));
 
         cmbSortOrder.setBackground(new java.awt.Color(11, 50, 69));
         cmbSortOrder.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         cmbSortOrder.setForeground(new java.awt.Color(255, 255, 255));
+        cmbSortOrder.setUI(new ColorArrowUI(new java.awt.Color(11, 50, 69), Color.white, Color.white));
         cmbSortOrder.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ascending", "Descending"}));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
