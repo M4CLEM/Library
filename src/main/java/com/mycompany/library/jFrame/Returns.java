@@ -29,6 +29,7 @@ public class Returns extends javax.swing.JFrame {
     public Returns() {
         initComponents();
         btnBack.addActionListener(new ComponentAction());
+        btnDelete.addActionListener(new ComponentAction());
         txtSearch.addActionListener(new ComponentAction());
         cmbSortBy.addActionListener(new ComponentAction());
         cmbSortOrder.addActionListener(new ComponentAction());
@@ -211,6 +212,8 @@ public class Returns extends javax.swing.JFrame {
             if(e.getSource() == btnBack) { // back
                 dispose();
                 new Administrator();
+            } else if(e.getSource() == btnDelete) {
+                deleteRecord();
             } else if(e.getSource() == txtSearch || e.getSource() == cmbSortBy || e.getSource() == cmbSortOrder) {
                 setTableValues(txtSearch.getText(), cmbSortBy.getSelectedIndex(), cmbSortOrder.getSelectedIndex());
             }
@@ -259,6 +262,29 @@ public class Returns extends javax.swing.JFrame {
             e.printStackTrace();
         }
         tblReturns.updateRowHeight();
+    }
+
+    private void deleteRecord()
+    {
+        ArrayList<Integer> selected = tblReturns.getSelectedRowsArray();
+        try {
+            Connection con = DriverManager.getConnection(Database.getUrl(), Database.getUsername(), Database.getPassword());
+            PreparedStatement stat = con.prepareStatement("DELETE FROM returns WHERE return_id = ?");
+            for(int i = 0; i < selected.size(); i++) {
+                String id = "";
+                Object val = tblReturns.getValueAt(selected.get(i), 0);
+                if(val != null) {
+                    id = val.toString();
+                    stat.setString(1, id);
+                    stat.executeUpdate();
+                }
+            }
+            stat.close();
+            con.close();
+            setTableValues(txtSearch.getText(), cmbSortBy.getSelectedIndex(), cmbSortOrder.getSelectedIndex());
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
