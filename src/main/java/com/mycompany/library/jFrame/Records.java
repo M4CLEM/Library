@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.SortOrder;
 
 import com.mycompany.library.Database;
 import com.mycompany.library.CustomComponents.CustomTable;
@@ -33,6 +34,8 @@ public class Records extends javax.swing.JFrame {
         btnBack.addActionListener(new ComponentAction());
         btnReturn.addActionListener(new ComponentAction());
         txtSearch.addActionListener(new ComponentAction());
+        cmbSortBy.addActionListener(new ComponentAction());
+        cmbSortOrder.addActionListener(new ComponentAction());
         btnEdit.setVisible(false);
         setTableValues("");
         setVisible(true);
@@ -55,8 +58,8 @@ public class Records extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblRecords = new CustomTable();
         txtSearch = new CustomTextField();
-        cmbSorting = new javax.swing.JComboBox<>();
-        cmbSort = new javax.swing.JComboBox<>();
+        cmbSortBy = new javax.swing.JComboBox<>();
+        cmbSortOrder = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -91,34 +94,34 @@ public class Records extends javax.swing.JFrame {
         tblRecords.setForeground(new java.awt.Color(255, 255, 255));
         tblRecords.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Name", "College", "Department", "Book Name", "Book Id", "Borrowed Date", "Return Date"
+                "Reservation ID", "User ID", "Book ID", "Reservation Start", "Reservation End"
             }
         ) {
             Class[] types = new Class [] {
@@ -138,15 +141,15 @@ public class Records extends javax.swing.JFrame {
         txtSearch.setForeground(new java.awt.Color(255, 255, 255));
         txtSearch.setPlaceholderText("Search");
 
-        cmbSorting.setBackground(new java.awt.Color(11, 50, 69));
-        cmbSorting.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        cmbSorting.setForeground(new java.awt.Color(255, 255, 255));
-        cmbSorting.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ascending", "Descending" }));
+        cmbSortBy.setBackground(new java.awt.Color(11, 50, 69));
+        cmbSortBy.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        cmbSortBy.setForeground(new java.awt.Color(255, 255, 255));
+        cmbSortBy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Reservation ID", "User ID", "Book ID", "Reservation Start", "Reservation End" }));
 
-        cmbSort.setBackground(new java.awt.Color(11, 50, 69));
-        cmbSort.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        cmbSort.setForeground(new java.awt.Color(255, 255, 255));
-        cmbSort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbSortOrder.setBackground(new java.awt.Color(11, 50, 69));
+        cmbSortOrder.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        cmbSortOrder.setForeground(new java.awt.Color(255, 255, 255));
+        cmbSortOrder.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ascending", "Descending" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -164,9 +167,9 @@ public class Records extends javax.swing.JFrame {
                         .addComponent(btnEdit))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(cmbSort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbSortOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(cmbSorting, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbSortBy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1004, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -180,8 +183,8 @@ public class Records extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbSorting, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbSort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbSortBy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbSortOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
@@ -222,6 +225,15 @@ public class Records extends javax.swing.JFrame {
                 setTableValues(txtSearch.getText());
             } else if(e.getSource() == btnReturn) {
                 addToReturns();
+            } else if(e.getSource() == cmbSortOrder || e.getSource() == cmbSortBy) {
+                String val = String.valueOf(cmbSortOrder.getSelectedItem());
+                SortOrder order = SortOrder.UNSORTED;
+                if(val.equalsIgnoreCase("ascending")) {
+                    order = SortOrder.ASCENDING;
+                } else if(val.equalsIgnoreCase("descending")) {
+                    order = SortOrder.DESCENDING;
+                }
+                tblRecords.sortTable(cmbSortBy.getSelectedIndex(), order);
             }
         }
     }
@@ -340,8 +352,8 @@ public class Records extends javax.swing.JFrame {
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnReturn;
     private javax.swing.JButton btnEdit;
-    private javax.swing.JComboBox<String> cmbSort;
-    private javax.swing.JComboBox<String> cmbSorting;
+    private javax.swing.JComboBox<String> cmbSortOrder;
+    private javax.swing.JComboBox<String> cmbSortBy;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
