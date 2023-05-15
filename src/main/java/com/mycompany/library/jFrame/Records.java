@@ -224,12 +224,10 @@ public class Records extends javax.swing.JFrame {
             if(e.getSource() == btnBack) {
                 dispose();
                 new Administrator();
-            } else if(e.getSource() == txtSearch) {
+            } else if(e.getSource() == txtSearch || e.getSource() == cmbSortOrder || e.getSource() == cmbSortBy) {
                 setTableValues(txtSearch.getText(), cmbSortBy.getSelectedIndex(), cmbSortOrder.getSelectedIndex());
             } else if(e.getSource() == btnReturn) {
                 addToReturns();
-            } else if(e.getSource() == cmbSortOrder || e.getSource() == cmbSortBy) {
-                setTableValues(txtSearch.getText(), cmbSortBy.getSelectedIndex(), cmbSortOrder.getSelectedIndex());
             }
         }
     }

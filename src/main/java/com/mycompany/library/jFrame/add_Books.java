@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -36,7 +37,9 @@ public class add_Books extends javax.swing.JFrame {
         btnDelete.addActionListener(new ComponentAction());
         btnEdit.addActionListener(new ComponentAction());
         btnBack.addActionListener(new ComponentAction());
-        setBooksInTable("");
+        cmbSortBy.addActionListener(new ComponentAction());
+        cmbSortOrder.addActionListener(new ComponentAction());
+        setTableValues("", cmbSortBy.getSelectedIndex(), cmbSortOrder.getSelectedIndex());
         setVisible(true);
     }
 
@@ -75,8 +78,8 @@ public class add_Books extends javax.swing.JFrame {
         txtSearch = new CustomTextField();
         btnEdit = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
-        cmbSorting = new javax.swing.JComboBox<>();
-        cmbSort = new javax.swing.JComboBox<>();
+        cmbSortBy = new javax.swing.JComboBox<>();
+        cmbSortOrder = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -260,38 +263,38 @@ public class add_Books extends javax.swing.JFrame {
         tblBooks.setForeground(new java.awt.Color(255, 255, 255));
         tblBooks.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Book ID", "Book Title", "Author", "Publisher", "Publish Date", "Subject Heading"
+                "Book ID", "Title", "Author", "Publisher", "Publish Date", "Subject Heading", "Availability"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, int.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -317,15 +320,15 @@ public class add_Books extends javax.swing.JFrame {
         btnDelete.setForeground(new java.awt.Color(255, 255, 255));
         btnDelete.setText("Delete");
 
-        cmbSorting.setBackground(new java.awt.Color(11, 50, 69));
-        cmbSorting.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        cmbSorting.setForeground(new java.awt.Color(255, 255, 255));
-        cmbSorting.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ascending", "Descending" }));
+        cmbSortBy.setBackground(new java.awt.Color(11, 50, 69));
+        cmbSortBy.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        cmbSortBy.setForeground(new java.awt.Color(255, 255, 255));
+        cmbSortBy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Book ID", "Title", "Author", "Publisher", "Publish Date", "Subject Heading", "Availability" }));
 
-        cmbSort.setBackground(new java.awt.Color(11, 50, 69));
-        cmbSort.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        cmbSort.setForeground(new java.awt.Color(255, 255, 255));
-        cmbSort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbSortOrder.setBackground(new java.awt.Color(11, 50, 69));
+        cmbSortOrder.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        cmbSortOrder.setForeground(new java.awt.Color(255, 255, 255));
+        cmbSortOrder.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ascending", "Descending"}));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -344,9 +347,9 @@ public class add_Books extends javax.swing.JFrame {
                                 .addComponent(btnDelete)
                                 .addGap(10, 10, 10))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(cmbSort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cmbSortOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cmbSorting, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cmbSortBy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
@@ -357,8 +360,8 @@ public class add_Books extends javax.swing.JFrame {
                 .addGap(41, 41, 41)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbSorting, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbSort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbSortBy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbSortOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
@@ -395,8 +398,8 @@ public class add_Books extends javax.swing.JFrame {
                 clearForm();
             } else if(e.getSource() == btnRegister) { // Register
                 registerBook();
-            } else if(e.getSource() == txtSearch) {
-                setBooksInTable(txtSearch.getText());
+            } else if(e.getSource() == txtSearch || e.getSource() == cmbSortBy || e.getSource() == cmbSortOrder) {
+                setTableValues(txtSearch.getText(), cmbSortBy.getSelectedIndex(), cmbSortOrder.getSelectedIndex());
             } else if(e.getSource() == btnDelete) {
                 deleteBook();
             } else if(e.getSource() == btnEdit) {
@@ -461,7 +464,7 @@ public class add_Books extends javax.swing.JFrame {
                 stat.close();
                 con.close();
                 System.out.println("Registration Successful!");
-                setBooksInTable(txtSearch.getText());
+                setTableValues(txtSearch.getText(), cmbSortBy.getSelectedIndex(), cmbSortOrder.getSelectedIndex());
             } catch(SQLException e) {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(null, "Something Went Wrong", "Register Failed", JOptionPane.ERROR_MESSAGE);
@@ -469,15 +472,20 @@ public class add_Books extends javax.swing.JFrame {
         }
     }
 
-    private void setBooksInTable(final String search_text)
+    private void setTableValues(final String search_text, final int index, final int order)
     {
         tblBooks.clearTable();
         String query = "";
         String search = "%" + search_text + "%";
+        ArrayList<String> order_by = new ArrayList<String>();
+        ArrayList<String> sort_by = new ArrayList<String>();
+        order_by.addAll(List.of("book_id", "title", "author", "publisher", "publish_date", "subject_heading", "availability"));
+        sort_by.addAll(List.of("ASC", "DESC"));
         if(search_text.isEmpty()) {
-            query = "SELECT * FROM books";
+            query = "SELECT * FROM books ORDER BY " + order_by.get(index) + " " + sort_by.get(order);
         } else {
-            query = "SELECT * FROM books WHERE LOWER(title) LIKE ? OR LOWER(author) LIKE ? OR LOWER(publisher) LIKE ? OR LOWER(subject_heading) LIKE ?";
+            query = "SELECT * FROM books WHERE LOWER(title) LIKE ? OR LOWER(author) LIKE ? OR LOWER(publisher) LIKE ? OR LOWER(subject_heading) LIKE ? ORDER BY " + 
+            order_by.get(index) + " " + sort_by.get(order);
         }
         try {
             Connection con = DriverManager.getConnection(Database.getUrl(), Database.getUsername(), Database.getPassword());
@@ -522,7 +530,7 @@ public class add_Books extends javax.swing.JFrame {
             }
             stat.close();
             con.close();
-            setBooksInTable(txtSearch.getText());
+            setTableValues(txtSearch.getText(), cmbSortBy.getSelectedIndex(), cmbSortOrder.getSelectedIndex());
         } catch(SQLException e) {
             e.printStackTrace();
         }
@@ -594,8 +602,8 @@ public class add_Books extends javax.swing.JFrame {
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnRegister;
-    private javax.swing.JComboBox<String> cmbSort;
-    private javax.swing.JComboBox<String> cmbSorting;
+    private javax.swing.JComboBox<String> cmbSortOrder;
+    private javax.swing.JComboBox<String> cmbSortBy;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
