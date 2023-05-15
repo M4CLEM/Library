@@ -21,7 +21,7 @@ public class ColorArrowUI extends BasicComboBoxUI {
 
     public static ComboBoxUI createUI(JComponent c) 
     {
-        return new ColorArrowUI(null, null, null);
+        return new ColorArrowUI(Color.red, Color.green, Color.blue);
     }
 
     @Override 

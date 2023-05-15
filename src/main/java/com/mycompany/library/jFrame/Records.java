@@ -18,8 +18,7 @@ import java.util.List;
 import javax.swing.SortOrder;
 
 import com.mycompany.library.Database;
-import com.mycompany.library.CustomComponents.CustomTable;
-import com.mycompany.library.CustomComponents.CustomTextField;
+import com.mycompany.library.CustomComponents.*;
 import com.mycompany.library.utilities.LibraryUtil;
 import com.mysql.cj.jdbc.Driver;
 
@@ -147,11 +146,13 @@ public class Records extends javax.swing.JFrame {
         cmbSortBy.setBackground(new java.awt.Color(11, 50, 69));
         cmbSortBy.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         cmbSortBy.setForeground(new java.awt.Color(255, 255, 255));
+        cmbSortBy.setUI(new ColorArrowUI(new java.awt.Color(11, 50, 69), java.awt.Color.white, java.awt.Color.white));
         cmbSortBy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Reservation ID", "User ID", "Book ID", "Reservation Start", "Reservation End" }));
 
         cmbSortOrder.setBackground(new java.awt.Color(11, 50, 69));
         cmbSortOrder.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         cmbSortOrder.setForeground(new java.awt.Color(255, 255, 255));
+        cmbSortOrder.setUI(new ColorArrowUI(new java.awt.Color(11, 50, 69), java.awt.Color.white, java.awt.Color.white));
         cmbSortOrder.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ascending", "Descending" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
