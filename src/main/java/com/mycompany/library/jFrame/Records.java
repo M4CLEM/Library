@@ -50,7 +50,7 @@ public class Records extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btnBack = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
+        btnReturn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblRecords = new CustomTable();
@@ -77,10 +77,10 @@ public class Records extends javax.swing.JFrame {
         btnEdit.setForeground(new java.awt.Color(255, 255, 255));
         btnEdit.setText("Edit");
 
-        btnDelete.setBackground(new java.awt.Color(11, 50, 69));
-        btnDelete.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        btnDelete.setForeground(new java.awt.Color(255, 255, 255));
-        btnDelete.setText("Delete");
+        btnReturn.setBackground(new java.awt.Color(11, 50, 69));
+        btnReturn.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnReturn.setForeground(new java.awt.Color(255, 255, 255));
+        btnReturn.setText("Register");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -159,7 +159,7 @@ public class Records extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnBack)
                         .addGap(60, 60, 60)
-                        .addComponent(btnDelete)
+                        .addComponent(btnReturn)
                         .addGap(18, 18, 18)
                         .addComponent(btnEdit))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -187,7 +187,7 @@ public class Records extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBack)
-                    .addComponent(btnDelete)
+                    .addComponent(btnReturn)
                     .addComponent(btnEdit))
                 .addGap(16, 16, 16))
         );
@@ -338,7 +338,7 @@ public class Records extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnReturn;
     private javax.swing.JButton btnEdit;
     private javax.swing.JComboBox<String> cmbSort;
     private javax.swing.JComboBox<String> cmbSorting;

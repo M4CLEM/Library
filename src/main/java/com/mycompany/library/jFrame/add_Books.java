@@ -306,14 +306,6 @@ public class add_Books extends javax.swing.JFrame {
         txtSearch.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtSearch.setForeground(new java.awt.Color(255, 255, 255));
         txtSearch.setPlaceholderText("Search...");
-        txtSearch.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtSearchFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtSearchFocusLost(evt);
-            }
-        });
 
         btnEdit.setBackground(new java.awt.Color(11, 50, 69));
         btnEdit.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -401,11 +393,11 @@ public class add_Books extends javax.swing.JFrame {
         {
             if(e.getSource() == jButton1) { // Reset
                 clearForm();
-            } else if(e.getSource() == jButton2) { // Register
+            } else if(e.getSource() == btnRegister) { // Register
                 registerBook();
             } else if(e.getSource() == txtSearch) {
                 setBooksInTable(txtSearch.getText());
-            } else if(e.getSource() == btnDbtnRegister
+            } else if(e.getSource() == btnDelete) {
                 deleteBook();
             } else if(e.getSource() == btnEdit) {
                 editBook();

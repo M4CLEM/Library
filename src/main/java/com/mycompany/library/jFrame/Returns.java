@@ -28,7 +28,6 @@ public class Returns extends javax.swing.JFrame {
     public Returns() {
         initComponents();
         btnBack.addActionListener(new ComponentAction());
-        btnRegister.addActionListener(new ComponentAction());
         setTableValues("");
         setVisible(true);
     }
@@ -206,9 +205,7 @@ public class Returns extends javax.swing.JFrame {
             if(e.getSource() == btnBack) { // back
                 dispose();
                 new Administrator();
-            } else if(e.getSource() == btnRegister) {
-                registerUser();
-            }
+            } 
         }
     }
 

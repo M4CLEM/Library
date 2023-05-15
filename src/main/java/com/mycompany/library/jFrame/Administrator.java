@@ -18,6 +18,10 @@ public class Administrator extends javax.swing.JFrame {
      */
     public Administrator() {
         initComponents();
+        btnViewRecords.addActionListener(new ComponentAction());
+        btnAddBooks.addActionListener(new ComponentAction());
+        btnTracker.addActionListener(new ComponentAction());
+        btnLogOut.addActionListener(new ComponentAction());
         setVisible(true);
     }
 
@@ -48,17 +52,12 @@ public class Administrator extends javax.swing.JFrame {
 
         btnViewRecords.setBackground(new java.awt.Color(27, 53, 86));
         btnViewRecords.setForeground(new java.awt.Color(255, 255, 255));
-        btnViewRecords.setIcon(new javax.swing.ImageIcon("C:\\Users\\Clemence\\Desktop\\Library Management System\\resources\\images\\edit.png")); // NOI18N
+        btnViewRecords.setIcon(new javax.swing.ImageIcon("resources\\images\\edit.png")); // NOI18N
         btnViewRecords.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
-        btnViewRecords.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnViewRecordsActionPerformed(evt);
-            }
-        });
 
         btnAddBooks.setBackground(new java.awt.Color(27, 53, 86));
         btnAddBooks.setForeground(new java.awt.Color(255, 255, 255));
-        btnAddBooks.setIcon(new javax.swing.ImageIcon("C:\\Users\\Clemence\\Desktop\\Library Management System\\resources\\images\\addbook.png")); // NOI18N
+        btnAddBooks.setIcon(new javax.swing.ImageIcon("resources\\images\\addbook.png")); // NOI18N
         btnAddBooks.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
@@ -67,7 +66,7 @@ public class Administrator extends javax.swing.JFrame {
 
         btnLogOut.setBackground(new java.awt.Color(11, 50, 69));
         btnLogOut.setForeground(new java.awt.Color(255, 255, 255));
-        btnLogOut.setIcon(new javax.swing.ImageIcon("C:\\Users\\Clemence\\Desktop\\Library Management System\\resources\\images\\logout.png")); // NOI18N
+        btnLogOut.setIcon(new javax.swing.ImageIcon("resources\\images\\logout.png")); // NOI18N
         btnLogOut.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -76,7 +75,7 @@ public class Administrator extends javax.swing.JFrame {
 
         btnTracker.setBackground(new java.awt.Color(27, 53, 86));
         btnTracker.setForeground(new java.awt.Color(255, 255, 255));
-        btnTracker.setIcon(new javax.swing.ImageIcon("C:\\Users\\Clemence\\Desktop\\Library Management System\\resources\\images\\tracker.png")); // NOI18N
+        btnTracker.setIcon(new javax.swing.ImageIcon("resources\\images\\tracker.png")); // NOI18N
         btnTracker.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
