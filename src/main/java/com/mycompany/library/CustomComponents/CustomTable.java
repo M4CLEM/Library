@@ -7,8 +7,6 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
-import java.lang.Comparable;
 import javax.swing.SortOrder;
 import javax.swing.table.TableRowSorter;
 import javax.swing.RowSorter;

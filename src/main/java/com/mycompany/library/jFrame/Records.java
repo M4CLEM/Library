@@ -12,6 +12,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import javax.swing.SortOrder;
 
 import com.mycompany.library.Database;
@@ -37,7 +40,7 @@ public class Records extends javax.swing.JFrame {
         cmbSortBy.addActionListener(new ComponentAction());
         cmbSortOrder.addActionListener(new ComponentAction());
         btnEdit.setVisible(false);
-        setTableValues("");
+        setTableValues("", cmbSortBy.getSelectedIndex(), cmbSortOrder.getSelectedIndex());
         setVisible(true);
     }
 
@@ -222,25 +225,29 @@ public class Records extends javax.swing.JFrame {
                 dispose();
                 new Administrator();
             } else if(e.getSource() == txtSearch) {
-                setTableValues(txtSearch.getText());
+                setTableValues(txtSearch.getText(), cmbSortBy.getSelectedIndex(), cmbSortOrder.getSelectedIndex());
             } else if(e.getSource() == btnReturn) {
                 addToReturns();
             } else if(e.getSource() == cmbSortOrder || e.getSource() == cmbSortBy) {
-                //setTableValues(txtSearch.getText(), , null);
+                setTableValues(txtSearch.getText(), cmbSortBy.getSelectedIndex(), cmbSortOrder.getSelectedIndex());
             }
         }
     }
 
-    private void setTableValues(String search)
+    private void setTableValues(String search, final int index, final int order)
     {
         tblRecords.clearTable();
         boolean empty_search = search.isEmpty();
+        ArrayList<String> order_by = new ArrayList<String>();
+        ArrayList<String> sort_by = new ArrayList<String>();
+        order_by.addAll(List.of("reservation_id", "user_id", "book_id", "reservation_start", "reservation_end"));
+        sort_by.addAll(List.of("ASC", "DESC"));
         String query = "";
         if(empty_search) {
-            query = "SELECT * FROM reservations";
+            query = "SELECT * FROM reservations ORDER BY " + order_by.get(index) + " " + sort_by.get(order);
         } else {
             query = "SELECT * FROM reservations WHERE reservation_id = ? OR user_id = ? " + 
-            "OR book_id = ?";
+            "OR book_id = ? ORDER BY " + order_by.get(index) + " " + sort_by.get(order);
         }
         try {
             Connection con = DriverManager.getConnection(Database.getUrl(), Database.getUsername(), Database.getPassword());
@@ -299,7 +306,7 @@ public class Records extends javax.swing.JFrame {
                 }
                 stat.close();
                 con.close();
-                setTableValues("");
+                setTableValues("", cmbSortBy.getSelectedIndex(), cmbSortOrder.getSelectedIndex());
             } catch(SQLException e) {
                 e.printStackTrace();
             }
