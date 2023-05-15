@@ -12,6 +12,8 @@ import com.mycompany.library.utilities.LibraryUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.ConnectException;
+import java.util.ArrayList;
+import java.util.List;
 import java.sql.*;
 
 import javax.swing.JOptionPane;
@@ -28,7 +30,9 @@ public class Returns extends javax.swing.JFrame {
     public Returns() {
         initComponents();
         btnBack.addActionListener(new ComponentAction());
-        setTableValues("");
+        cmbSortBy.addActionListener(new ComponentAction());
+        cmbSortOrder.addActionListener(new ComponentAction());
+        setTableValues("", cmbSortBy.getSelectedIndex(), cmbSortOrder.getSelectedIndex());
         setVisible(true);
     }
 
@@ -47,8 +51,8 @@ public class Returns extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnBack = new javax.swing.JButton();
         txtSearch = new CustomTextField();
-        cmbSorting = new javax.swing.JComboBox<>();
-        cmbSort = new javax.swing.JComboBox<>();
+        cmbSortBy = new javax.swing.JComboBox<>();
+        cmbSortOrder = new javax.swing.JComboBox<>();
         btnDelete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -60,39 +64,39 @@ public class Returns extends javax.swing.JFrame {
         tblReturns.setForeground(new java.awt.Color(255, 255, 255));
         tblReturns.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "User ID", "Book ID", "Reservation Start", "Reservation End"
+                "Return ID", "User ID", "Book ID", "Reservation Start", "Reservation End"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -121,15 +125,15 @@ public class Returns extends javax.swing.JFrame {
         txtSearch.setForeground(new java.awt.Color(255, 255, 255));
         txtSearch.setPlaceholderText("Search");
 
-        cmbSorting.setBackground(new java.awt.Color(11, 50, 69));
-        cmbSorting.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        cmbSorting.setForeground(new java.awt.Color(255, 255, 255));
-        cmbSorting.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ascending", "Descending" }));
+        cmbSortBy.setBackground(new java.awt.Color(11, 50, 69));
+        cmbSortBy.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        cmbSortBy.setForeground(new java.awt.Color(255, 255, 255));
+        cmbSortBy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Return ID", "User ID", "Book ID", "Reservation Start", "Reservation End" }));
 
-        cmbSort.setBackground(new java.awt.Color(11, 50, 69));
-        cmbSort.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        cmbSort.setForeground(new java.awt.Color(255, 255, 255));
-        cmbSort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbSortOrder.setBackground(new java.awt.Color(11, 50, 69));
+        cmbSortOrder.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        cmbSortOrder.setForeground(new java.awt.Color(255, 255, 255));
+        cmbSortOrder.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"Ascending", "Descending"}));
 
         btnDelete.setBackground(new java.awt.Color(11, 50, 69));
         btnDelete.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -146,9 +150,9 @@ public class Returns extends javax.swing.JFrame {
                     .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 435, Short.MAX_VALUE)
-                        .addComponent(cmbSort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbSortOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmbSorting, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbSortBy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -168,8 +172,8 @@ public class Returns extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbSorting, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbSort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbSortBy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbSortOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21)
@@ -205,53 +209,26 @@ public class Returns extends javax.swing.JFrame {
             if(e.getSource() == btnBack) { // back
                 dispose();
                 new Administrator();
-            } 
+            } else if(e.getSource() == cmbSortBy || e.getSource() == cmbSortOrder) {
+                setTableValues(txtSearch.getText(), cmbSortBy.getSelectedIndex(), cmbSortOrder.getSelectedIndex());
+            }
         }
     }
 
-    private void registerUser()
-    {
-        // boolean is_email = false;
-        // boolean empty_date = txtReturnDate.getText().isBlank();
-        // if(txtUser.getText().isBlank()) {
-        //     JOptionPane.showMessageDialog(null, "User cannot be blank", "Register Failed", JOptionPane.ERROR_MESSAGE);
-        //     return;
-        // }
-        // if(txtUser.getText().contains("@")) {
-        //     is_email = true;
-        // }
-        // int user_id = 0;
-        // if(is_email) {
-        //     user_id = LibraryUtil.getUserId(txtUser.getText());
-        // } else if(!is_email && txtUser.matches("^[0-9]$")) {
-        //     user_id = Integer.parseInt(txtUser.getText());
-        // }
-        // String query = "";
-        // if(empty_date) {
-        //     query = "INSERT INTO returns (user_id, book_id) VALUES (?, (SELECT book_id FROM reservations WHERE ))";
-        // } else {
-        //     query = "INSERT INTO returns (user_id, book_id, return_date) VALUES (?, ?, ?)";
-        // }
-        // try {
-        //     Connection con = DriverManager.getConnection(Database.getUrl(), Database.getUsername(), Database.getPassword());
-        //     PreparedStatement stat = con.prepareStatement(query);
-        //     stat.setInt(1, user_id);
-
-        // } catch(SQLException e) {
-        //     e.printStackTrace();
-        // }
-    }
-
-    private void setTableValues(final String search)
+    private void setTableValues(final String search, final int index, final int order)
     {
         tblReturns.clearTable();
         boolean empty_search = search.isEmpty();
+        ArrayList<String> order_by = new ArrayList<String>();
+        ArrayList<String> sort_by = new ArrayList<String>();
+        order_by.addAll(List.of("return_id", "user_id", "book_id", "reservation_end", "return_date"));
+        sort_by.addAll(List.of("ASC", "DESC"));
         String query = "";
         if(empty_search) {
-            query = "SELECT * FROM returns ORDER BY return_id DESC";
+            query = "SELECT * FROM returns ORDER BY " + order_by.get(index) + " " + sort_by.get(order);
         } else {
             query = "SELECT * FROM returns WHERE return_id = ? OR user_id = ? " + 
-            "OR book_id = ?";
+            "OR book_id = ? ORDER BY " + order_by.get(index) + " " + sort_by.get(order);
         }
         try {
             Connection con = DriverManager.getConnection(Database.getUrl(), Database.getUsername(), Database.getPassword());
@@ -321,8 +298,8 @@ public class Returns extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnDelete;
-    private javax.swing.JComboBox<String> cmbSort;
-    private javax.swing.JComboBox<String> cmbSorting;
+    private javax.swing.JComboBox<String> cmbSortOrder;
+    private javax.swing.JComboBox<String> cmbSortBy;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
