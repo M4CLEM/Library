@@ -30,6 +30,7 @@ public class Returns extends javax.swing.JFrame {
     public Returns() {
         initComponents();
         btnBack.addActionListener(new ComponentAction());
+        txtSearch.addActionListener(new ComponentAction());
         cmbSortBy.addActionListener(new ComponentAction());
         cmbSortOrder.addActionListener(new ComponentAction());
         setTableValues("", cmbSortBy.getSelectedIndex(), cmbSortOrder.getSelectedIndex());
@@ -209,7 +210,7 @@ public class Returns extends javax.swing.JFrame {
             if(e.getSource() == btnBack) { // back
                 dispose();
                 new Administrator();
-            } else if(e.getSource() == cmbSortBy || e.getSource() == cmbSortOrder) {
+            } else if(e.getSource() == txtSearch || e.getSource() == cmbSortBy || e.getSource() == cmbSortOrder) {
                 setTableValues(txtSearch.getText(), cmbSortBy.getSelectedIndex(), cmbSortOrder.getSelectedIndex());
             }
         }
