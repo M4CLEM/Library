@@ -33,6 +33,7 @@ public class Reservation extends javax.swing.JFrame {
         tblTable.getColumnModel().getColumn(0).setPreferredWidth(85);
         tblTable.getColumnModel().getColumn(4).setPreferredWidth(50);
         tblTable.getColumnModel().getColumn(6).setMaxWidth(100);
+        setTableValues();
         setVisible(true);
     }
 
@@ -329,7 +330,7 @@ public class Reservation extends javax.swing.JFrame {
         public void actionPerformed(ActionEvent e)
         {
             if(e.getSource() == txtSearch) {
-                setTableValuesFromSearch();
+                setTableValues();
             } else if(e.getSource() == btnBookReserve) {
                 reserveUser();
             } else if(e.getSource() == jButton1) { // Back
@@ -385,17 +386,26 @@ public class Reservation extends javax.swing.JFrame {
         }
     }
 
-    private void setTableValuesFromSearch()
+    private void setTableValues(String search)
     {
-        if(txtSearch.getText().isBlank()) {
-            return;
+        String query = "";
+        boolean empty_search = txtSearch.getText().isEmpty();
+        if(empty_search) {
+            query = "SELECT * FROM books";
+        } else {
+            query = "SELECT * FROM books WHERE LOWER(title) LIKE ? OR LOWER(author) LIKE ? OR LOWER(publisher) LIKE ? OR LOWER(subject_heading) LIKE ?";
         }
         tblTable.clearTable();
-        String search = "%" + txtSearch.getText() + "%";
+        search = "%" + search + "%";
         try {
             Connection connection = DriverManager.getConnection(Database.getUrl(), Database.getUsername(), Database.getPassword());
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM books WHERE LOWER(title) LIKE ?");
-            statement.setString(1, search);
+            PreparedStatement statement = connection.prepareStatement(query);
+            if(!empty_search) {
+                statement.setString(1, search);
+                statement.setString(2, search);
+                statement.setString(3, search);
+                statement.setString(4, search);
+            }
             ResultSet result = statement.executeQuery();
             ResultSetMetaData rs = result.getMetaData();
             int column = 0;
