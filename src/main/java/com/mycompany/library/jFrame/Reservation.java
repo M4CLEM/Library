@@ -33,7 +33,7 @@ public class Reservation extends javax.swing.JFrame {
         tblTable.getColumnModel().getColumn(0).setPreferredWidth(85);
         tblTable.getColumnModel().getColumn(4).setPreferredWidth(50);
         tblTable.getColumnModel().getColumn(6).setMaxWidth(100);
-        setTableValues();
+        setTableValues("");
         setVisible(true);
     }
 
@@ -330,7 +330,7 @@ public class Reservation extends javax.swing.JFrame {
         public void actionPerformed(ActionEvent e)
         {
             if(e.getSource() == txtSearch) {
-                setTableValues();
+                setTableValues(txtSearch.getText());
             } else if(e.getSource() == btnBookReserve) {
                 reserveUser();
             } else if(e.getSource() == jButton1) { // Back
@@ -380,6 +380,7 @@ public class Reservation extends javax.swing.JFrame {
                 stat.executeUpdate();
                 stat.close();
                 con.close();
+                JOptionPane.showMessageDialog(null, "Your reservation has been added", "Reservation Successful", JOptionPane.INFORMATION_MESSAGE);
             } catch(SQLException e) {
                 e.printStackTrace();
             }
@@ -407,15 +408,12 @@ public class Reservation extends javax.swing.JFrame {
                 statement.setString(4, search);
             }
             ResultSet result = statement.executeQuery();
-            ResultSetMetaData rs = result.getMetaData();
-            int column = 0;
-            int row = 0;
-            int n = rs.getColumnCount();
+            int i = 0;
             while(result.next()) {
-                row = result.getRow()-1;
-                for(column = 1; column <= n; column++) {
-                    tblTable.setValueAt(result.getString(column), row, column-1);
+                for(int j = 0; j < tblTable.getColumnCount(); j++) {
+                    tblTable.setValueAt(result.getString(j+1), i, j); 
                 }
+                i++;
             }
             result.close();
             statement.close();
