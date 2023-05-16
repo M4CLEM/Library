@@ -142,18 +142,10 @@ public class Reservation extends javax.swing.JFrame {
                     txtBookID.setForeground(Color.gray);
                     txtBookTitle.setForeground(Color.gray);
                 } else {
-                    int stock = Integer.parseInt((String)tblTable.getValueAt(r, 6));
-                    if(stock < 1) {
-                        txtBookID.setText("[NOT AVAILABLE]");
-                        txtBookTitle.setText("[NOT AVAILABLE]");
-                        txtBookID.setForeground(Color.red);
-                        txtBookTitle.setForeground(Color.red);
-                    } else {
-                        txtBookID.setText(tblTable.getValueAt(r, 0).toString());
-                        txtBookTitle.setText(tblTable.getValueAt(r, 1).toString());
-                        txtBookID.setForeground(Color.white);
-                        txtBookTitle.setForeground(Color.white);
-                    }
+                    txtBookID.setText(tblTable.getValueAt(r, 0).toString());
+                    txtBookTitle.setText(tblTable.getValueAt(r, 1).toString());
+                    txtBookID.setForeground(Color.white);
+                    txtBookTitle.setForeground(Color.white);
                 }
             }
         });
