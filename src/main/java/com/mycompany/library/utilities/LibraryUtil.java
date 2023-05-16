@@ -108,6 +108,26 @@ public class LibraryUtil {
         return getUserId(email) > 0;
     }
 
+    public static int getBookAvailability(final String book_id)
+    {
+        int count = 0;
+        try {
+            Connection con = DriverManager.getConnection(Database.getUrl(), Database.getUsername(), Database.getPassword());
+            PreparedStatement stat = con.prepareStatement("SELECT availability FROM books WHERE book_id = ?");
+            stat.setString(1, book_id);
+            ResultSet rs = stat.executeQuery();
+            if(rs.next()) {
+                count = rs.getInt(1);
+            }
+            rs.close();
+            stat.close();
+            con.close();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
     public static String getDatetimeNow()
     {
         Date currentDate = new Date();
