@@ -111,10 +111,10 @@ public class Log_In extends javax.swing.JFrame {
         btnGuest.setBackground(new java.awt.Color(11, 50, 69));
         btnGuest.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnGuest.setForeground(new java.awt.Color(255, 255, 255));
-        btnGuest.setText("Guest");
+        btnGuest.setText("Reserve");
         btnGuest.addActionListener(new ComponentAction());
         jPanel2.add(btnGuest);
-        btnGuest.setBounds(130, 270, 100, 39);
+        btnGuest.setBounds(130, 270, 120, 39);
 
         btnLogin.setBackground(new java.awt.Color(11, 50, 69));
         btnLogin.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
