@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.SortOrder;
 
 import com.mycompany.library.Database;
@@ -281,6 +282,13 @@ public class Records extends javax.swing.JFrame {
     {
         ArrayList<Integer> selected = tblRecords.getSelectedRowsArray();
         if(!selected.isEmpty()) {
+            for(int i = 0; i < selected.size(); i++) {
+                int row = selected.get(i);
+                if(tblRecords.getValueAt(row, 0) == null) {
+                    JOptionPane.showMessageDialog(null, "Empty Cell Selected", "Returns Failed", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
             try {
                 Connection con = DriverManager.getConnection(Database.getUrl(), Database.getUsername(), Database.getPassword());
                 PreparedStatement stat = con.prepareStatement("INSERT INTO returns (user_id, book_id, reservation_end, return_date) " +
@@ -305,7 +313,8 @@ public class Records extends javax.swing.JFrame {
                 }
                 stat.close();
                 con.close();
-                setTableValues("", cmbSortBy.getSelectedIndex(), cmbSortOrder.getSelectedIndex());
+                setTableValues(txtSearch.getText(), cmbSortBy.getSelectedIndex(), cmbSortOrder.getSelectedIndex());
+                JOptionPane.showMessageDialog(null, "Record has been added to returns table", "Returns Successful", JOptionPane.INFORMATION_MESSAGE);
             } catch(SQLException e) {
                 e.printStackTrace();
             }
