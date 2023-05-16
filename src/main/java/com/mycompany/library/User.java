@@ -3,12 +3,27 @@ package com.mycompany.library;
 import java.io.File;
 import java.io.FileNotFoundException;  
 import java.util.Scanner; 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
 
 public class User {
+    private static final String config_file = "resources/credentials/admin.properties";
+    private static Properties properties = new Properties();
+
     private String username = "";
     private String email = "";
     private String password = "";
     private boolean admin = false; // check if the current user is an admin
+
+    static {
+        try {
+            FileInputStream input = new FileInputStream(config_file);
+            properties.load(input);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     
     // Constructors
     public User(String usm, String pw) // constructor to initialize user object
@@ -20,33 +35,11 @@ public class User {
         }
         password = pw;
 
-        String admin_name = "";
-        String admin_pw = "";
+        String admin_name = properties.getProperty("username");
+        String admin_pw = properties.getProperty("password");
 
-        try {
-            File file = new File("resources/credentials/admin.txt");
-            Scanner read = new Scanner(file);
-            int i = 0;
-            while(i < 2 && read.hasNextLine()) {
-                if(i < 2) {
-                    if(i == 0) {
-                        admin_name = read.nextLine();
-                    } else if(i == 1) {
-                        admin_pw = read.nextLine();
-                    }
-                    i++;
-                }
-            }
-            read.close();
-            admin_name = admin_name.trim(); // remove trailing whitespaces
-            admin_pw = admin_pw.trim();
-        } catch(FileNotFoundException e) {
-            System.out.println("[Error] File not found");
-            e.printStackTrace();
-        }
-
-        // System.out.println("Admin username: " + admin_name);
-        // System.out.println("Admin password: " + admin_pw);
+        System.out.println("Admin username: " + admin_name);
+        System.out.println("Admin password: " + admin_pw);
 
         if((username.equals(admin_name) || email.equals(admin_name)) && password.equals(admin_pw)) {
             admin = true;
