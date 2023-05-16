@@ -518,6 +518,13 @@ public class add_Books extends javax.swing.JFrame {
     private void deleteBook()
     {
         ArrayList<Integer> selected = tblBooks.getSelectedRowsArray();
+        for(int i = 0; i < selected.size(); i++) {
+            int row = selected.get(i);
+            if(tblBooks.getValueAt(row, 0) == null) {
+                JOptionPane.showMessageDialog(null, "Empty Cell Selected", "Register Failed", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
         try {
             Connection con = DriverManager.getConnection(Database.getUrl(), Database.getUsername(), Database.getPassword());
             PreparedStatement stat = con.prepareStatement("DELETE FROM books WHERE book_id = ?");
@@ -541,6 +548,10 @@ public class add_Books extends javax.swing.JFrame {
     private void editBook()
     {
         int row = tblBooks.getSelectedRow();
+        if(tblBooks.getValueAt(row, 0) == null) {
+            JOptionPane.showMessageDialog(null, "Empty Cell Selected", "Register Failed", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         for(int i = 0; i < tblBooks.getColumnCount(); i++) {
             String str = "";
             if(tblBooks.getValueAt(row, i) != null) {
