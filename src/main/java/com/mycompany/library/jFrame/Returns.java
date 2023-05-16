@@ -91,7 +91,7 @@ public class Returns extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Return ID", "User ID", "Book ID", "Reservation Start", "Reservation End"
+                "Return ID", "User ID", "Book ID", "Reservation End", "Return Date"
             }
         ) {
             Class[] types = new Class [] {
