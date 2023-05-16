@@ -1,8 +1,5 @@
 package com.mycompany.library;
 
-import java.io.File;
-import java.io.FileNotFoundException;  
-import java.util.Scanner; 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -38,9 +35,6 @@ public class User {
         String admin_name = properties.getProperty("username");
         String admin_pw = properties.getProperty("password");
 
-        System.out.println("Admin username: " + admin_name);
-        System.out.println("Admin password: " + admin_pw);
-
         if((username.equals(admin_name) || email.equals(admin_name)) && password.equals(admin_pw)) {
             admin = true;
         }
@@ -64,16 +58,16 @@ public class User {
         return admin;
     }
 
-    public boolean isValidUser()
-    {
-        if(admin) { // is admin
-            return true;
-        } else if((username.equals("User") || email.equals("user@gmail.com")) && password.equals("userpw")) { // is regular user
-            return true;
-        } else {
-            return false;
-        }
-    }
+    // public boolean isValidUser()
+    // {
+    //     if(admin) { // is admin
+    //         return true;
+    //     } else if((username.equals("User") || email.equals("user@gmail.com")) && password.equals("userpw")) { // is regular user
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
 
     public void showInfo()
     {
