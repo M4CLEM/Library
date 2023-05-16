@@ -1,16 +1,1 @@
 To-Do List:
-
-Returns.java 
-- Paremove nalang left panel
-- Lagyan Search textfield
-- Palagyan JComboBox malapit sa search bar para sort search
-- Palagyan nadin delete button
-
-Records.java
-- Lagyan JComboBox katabi ng search bar
-
-add_Books.java
-- Lagyan JComboBox katabi ng search bar
-
-Administrator.java
-- Paayos nalang placement ng log out button
