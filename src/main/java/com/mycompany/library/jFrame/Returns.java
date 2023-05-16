@@ -282,6 +282,7 @@ public class Returns extends javax.swing.JFrame {
             stat.close();
             con.close();
             setTableValues(txtSearch.getText(), cmbSortBy.getSelectedIndex(), cmbSortOrder.getSelectedIndex());
+            JOptionPane.showMessageDialog(null, "Record has been deleted", "Delete Successful", JOptionPane.INFORMATION_MESSAGE);
         } catch(SQLException e) {
             e.printStackTrace();
         }
