@@ -6,11 +6,9 @@ package com.mycompany.library.jFrame;
 
 import com.mycompany.library.Database;
 import com.mycompany.library.CustomComponents.*;
-import com.mycompany.library.utilities.LibraryUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;

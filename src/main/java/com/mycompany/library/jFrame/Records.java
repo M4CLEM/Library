@@ -12,16 +12,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.JOptionPane;
-import javax.swing.SortOrder;
 
 import com.mycompany.library.Database;
 import com.mycompany.library.CustomComponents.*;
 import com.mycompany.library.utilities.LibraryUtil;
-import com.mysql.cj.jdbc.Driver;
 
 /**
  *
