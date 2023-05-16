@@ -352,6 +352,8 @@ public class Reservation extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Invalid Email Provided", "Reservation Failed", JOptionPane.ERROR_MESSAGE);
         } else if(!LibraryUtil.isValidBookIdFormat(txtBookID.getText())) {
             JOptionPane.showMessageDialog(null, "Invalid Book ID", "Reservation Failed", JOptionPane.ERROR_MESSAGE);
+        } else if(LibraryUtil.getBookAvailability(txtBookID.getText()) < 1) {
+            JOptionPane.showMessageDialog(null, "\"" + txtBookTitle.getText() + "\" is not available", "Reservation Failed", JOptionPane.ERROR_MESSAGE);
         } else {
             String query = "";
             boolean user_exist = LibraryUtil.userExists(txtEmail.getText());
@@ -378,8 +380,12 @@ public class Reservation extends javax.swing.JFrame {
                 stat.setTimestamp(3, java.sql.Timestamp.valueOf(date));
                 stat.setTimestamp(4, java.sql.Timestamp.valueOf(LibraryUtil.getAddedDatetime(date, 7)));
                 stat.executeUpdate();
+                stat = con.prepareStatement("UPDATE books SET availability = availability - 1 WHERE book_id = ?");
+                stat.setString(1, txtBookID.getText());
+                stat.executeUpdate();
                 stat.close();
                 con.close();
+                setTableValues(txtSearch.getText());
                 JOptionPane.showMessageDialog(null, "Your reservation has been added", "Reservation Successful", JOptionPane.INFORMATION_MESSAGE);
             } catch(SQLException e) {
                 e.printStackTrace();
