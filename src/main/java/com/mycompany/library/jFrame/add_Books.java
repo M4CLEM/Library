@@ -86,7 +86,7 @@ public class add_Books extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(27, 53, 86));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Clemence\\Desktop\\Library Management System\\resources\\images\\logo.jpg")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("resources/images/logo.jpg")); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
