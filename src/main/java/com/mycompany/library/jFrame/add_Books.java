@@ -469,7 +469,7 @@ public class add_Books extends javax.swing.JFrame {
                 setTableValues(txtSearch.getText(), cmbSortBy.getSelectedIndex(), cmbSortOrder.getSelectedIndex());
             } catch(SQLException e) {
                 e.printStackTrace();
-                JOptionPane.showMessageDialog(null, "Something Went Wrong", "Register Failed", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Something Went Wrong", "Database Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -511,6 +511,7 @@ public class add_Books extends javax.swing.JFrame {
             con.close();
         } catch(SQLException e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Something went wrong", "Database Error", JOptionPane.ERROR_MESSAGE);
         }
         tblBooks.updateRowHeight();
     }
@@ -542,6 +543,7 @@ public class add_Books extends javax.swing.JFrame {
             setTableValues(txtSearch.getText(), cmbSortBy.getSelectedIndex(), cmbSortOrder.getSelectedIndex());
         } catch(SQLException e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Something went wrong", "Database Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

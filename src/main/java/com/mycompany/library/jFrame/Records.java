@@ -271,6 +271,7 @@ public class Records extends javax.swing.JFrame {
             con.close();
         } catch(SQLException e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Something went wrong", "Database Error", JOptionPane.ERROR_MESSAGE);
         }
         tblRecords.updateRowHeight();
     }
@@ -296,10 +297,6 @@ public class Records extends javax.swing.JFrame {
                     stat.setString(2, tblRecords.getValueAt(row, 2).toString());
                     stat.setTimestamp(3, java.sql.Timestamp.valueOf(tblRecords.getValueAt(row, 4).toString()));
                     stat.setTimestamp(4, java.sql.Timestamp.valueOf(LibraryUtil.getDatetimeNow()));
-                    int user_id = Integer.parseInt(tblRecords.getValueAt(row, 1).toString());
-                    String book_id = tblRecords.getValueAt(row, 2).toString();
-                    String reservation_end = tblRecords.getValueAt(row, 4).toString();
-                    String return_date = LibraryUtil.getDatetimeNow();
                     stat.executeUpdate();
                 }
                 stat = con.prepareStatement("DELETE FROM reservations WHERE reservation_id = ?");
@@ -314,6 +311,7 @@ public class Records extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Record has been added to returns table", "Returns Successful", JOptionPane.INFORMATION_MESSAGE);
             } catch(SQLException e) {
                 e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Something went wrong", "Database Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

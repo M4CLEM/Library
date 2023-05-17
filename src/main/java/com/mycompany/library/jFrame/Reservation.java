@@ -381,6 +381,7 @@ public class Reservation extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Your reservation has been added", "Reservation Successful", JOptionPane.INFORMATION_MESSAGE);
             } catch(SQLException e) {
                 e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Something went wrong", "Database Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
